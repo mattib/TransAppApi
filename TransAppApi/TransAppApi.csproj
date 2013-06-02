@@ -168,20 +168,31 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DataSources\IUserManager.cs" />
+    <Compile Include="DataSources\UserManager.cs" />
     <Compile Include="DataSources\EventManager.cs" />
     <Compile Include="DataSources\EventSearchQuery.cs" />
     <Compile Include="DataSources\IEventManager.cs" />
     <Compile Include="DataSources\IEventsDataSource.cs" />
+    <Compile Include="DataSources\IUsersDataSource.cs" />
     <Compile Include="DataSources\MongoDbDataSource.cs" />
     <Compile Include="DataSources\MongoDbEventsDataSource.cs" />
     <Compile Include="DataSources\MongoDbManager.cs" />
+    <Compile Include="DataSources\MongoDbUsersDataSource.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\MongoDbEvent.cs" />
+    <Compile Include="Models\MongoDbUser.cs" />
+    <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

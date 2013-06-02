@@ -24,7 +24,7 @@ namespace TransAppApi.DataSources
             return ConfigurationManager.AppSettings.Get("MONGOLAB_URL");
         }
 
-        public MongoCollection<T> GetEventsCollection<T>(string databaseName)
+        public MongoCollection<T> GetCollection<T>(string databaseName)
         {
             var collections = Database.GetCollection<T>(databaseName);
 

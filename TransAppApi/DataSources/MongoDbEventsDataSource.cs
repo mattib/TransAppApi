@@ -14,7 +14,7 @@ namespace TransAppApi.DataSources
 
         private MongoCollection<MongoDbEvent> GetEventsCollection()
         {
-            var collections = DbManager.GetEventsCollection<MongoDbEvent>(m_eventsDataBaseName);
+            var collections = DbManager.GetCollection<MongoDbEvent>(m_eventsDataBaseName);
 
             return collections;
         }
