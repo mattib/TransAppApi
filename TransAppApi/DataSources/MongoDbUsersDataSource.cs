@@ -37,6 +37,15 @@ namespace TransAppApi.DataSources
             return UserItem;
         }
 
+        public User GetUser(string userName)
+        {
+            var UsersCollection = GetUsersCollection();
+            var query = Query<MongoDbUser>.EQ(e => e.UserName, userName);
+            var UserItem = UsersCollection.FindOne(query);
+
+            return UserItem;
+        }
+
         public void SaveUser(User UserItem)
         {
             if (UserItem.Id == 0)

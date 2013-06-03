@@ -39,6 +39,15 @@ namespace TransAppApi.DataSources
             return result;
         }
 
+        public User GetUser(string userName)
+        {
+            var mongoUser = m_userDataSource.GetUser(userName);
+
+            var result = new User(mongoUser);
+
+            return result;
+        }
+
         public void SaveUser(User user)
         {
             var mongoUser = new MongoDbUser(user);

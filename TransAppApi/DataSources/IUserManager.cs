@@ -12,6 +12,8 @@ namespace TransAppApi.DataSources
 
         User GetUser(int id);
 
+        User GetUser(string userName);
+
         void SaveUser(User user);
 
         void DeleteUser(int id);

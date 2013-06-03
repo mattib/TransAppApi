@@ -31,6 +31,12 @@ namespace TransAppApi.Controllers
             var result = m_userManager.GetUser(id);
             return result;
         }
+        // GET api/event/?userName={userName}
+        public User GetByUserName(string userName)
+        {
+            var result = m_userManager.GetUser(userName);
+            return result;
+        }
 
         // POST api/event - ?
         public void Post(User value) // [FromBody]string value
