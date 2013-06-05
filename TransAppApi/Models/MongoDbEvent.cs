@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TransAppApi.Entities;
 
 namespace TransAppApi.Models
 {
     public class MongoDbEvent : Event
     {
-        private int m_id;
         private ObjectId m_mongoId;
 
         public MongoDbEvent()

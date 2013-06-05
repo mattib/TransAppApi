@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TransAppApi.DataSources
+namespace TransAppApi.SearchQueries
 {
-    public class EventSearchQuery
+    public class EntitiesSearchQuery
     {
-        public int? TaskId { get; set; }
-        public int? UserId { get; set; }
+        public int? StartIndex { get; set; }
+        public int? PageSize { get; set; }
         public DateTime? LastModified { get; set; }
         public int? RowStatus { get; set; }
     }

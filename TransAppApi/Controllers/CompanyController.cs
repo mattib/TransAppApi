@@ -10,11 +10,11 @@ using TransAppApi.Models;
 
 namespace TransAppApi.Controllers
 {
-    public class UserController : ApiController
+    public class CompanyController : ApiController
     {
         private IUserManager m_userManager;
 
-        public UserController()
+        public CompanyController()
         {
             m_userManager = new UserManager();
         }

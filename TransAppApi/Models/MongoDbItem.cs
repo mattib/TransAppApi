@@ -3,23 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using TransAppApi.Entities;
 
 namespace TransAppApi.Models
 {
-    public class MongoDbUser : User
+    public class MongoDbItem
     {
-        private ObjectId m_mongoId;
-
-        public MongoDbUser()
-        {
-        }
-
-        public MongoDbUser(User user)
-            : base(user)
+        public MongoDbItem()
         {
             MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(Id.ToString()), 0);
         }
+
+        private int m_id;
+        private ObjectId m_mongoId;
 
         public ObjectId MongoId
         {
@@ -30,5 +25,8 @@ namespace TransAppApi.Models
                 Id = (int)value.Pid;
             }
         }
+
+        public int Id
+        { get { return m_id; } set { m_id = value; } }
     }
 }

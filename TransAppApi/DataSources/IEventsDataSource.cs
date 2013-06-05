@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using TransAppApi.Models;
+using TransAppApi.Entities;
 
 namespace TransAppApi.DataSources
 {

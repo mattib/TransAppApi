@@ -7,16 +7,16 @@ using TransAppApi.Entities;
 
 namespace TransAppApi.Models
 {
-    public class MongoDbUser : User
+    public class MongoDbCompany : Company
     {
         private ObjectId m_mongoId;
 
-        public MongoDbUser()
+        public MongoDbCompany()
         {
         }
 
-        public MongoDbUser(User user)
-            : base(user)
+        public MongoDbCompany(Company company)
+            : base(company)
         {
             MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(Id.ToString()), 0);
         }

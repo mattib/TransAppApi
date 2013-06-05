@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using TransAppApi.Models;
+using TransAppApi.Entities;
+using TransAppApi.SearchQueries;
 
-namespace TransAppApi.DataSources
+namespace TransAppApi.Managment
 {
     public interface IEventManager
     {

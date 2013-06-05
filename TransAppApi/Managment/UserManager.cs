@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TransAppApi.DataSources;
+using TransAppApi.Entities;
 using TransAppApi.Models;
 
-namespace TransAppApi.DataSources
+namespace TransAppApi.Managment
 {
     public class UserManager : IUserManager
     {
