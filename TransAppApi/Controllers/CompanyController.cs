@@ -7,42 +7,43 @@ using System.Web.Http;
 using TransAppApi.Entities;
 using TransAppApi.Managment;
 using TransAppApi.Models;
+using TransAppApi.SearchQueries;
 
 namespace TransAppApi.Controllers
 {
     public class CompanyController : ApiController
     {
-        private IUserManager m_userManager;
+        private IEntityManager<Company> m_comapanyManager;
 
         public CompanyController()
         {
-            m_userManager = new UserManager();
+            m_comapanyManager = new CompanyManager();
         }
 
         // GET api/event
-        public IEnumerable<User> Get()
+        public IEnumerable<Company> Get()
         {
-            var result = m_userManager.GetUsers();
+            var result = m_comapanyManager.GetEntities(new EntitiesSearchQuery() );
             return result;
         }
 
         // GET api/event/5
-        public User Get(int id)
+        public Company Get(int id)
         {
-            var result = m_userManager.GetUser(id);
+            var result = m_comapanyManager.GetEntity(id);
             return result;
         }
-        // GET api/event/?userName={userName}
-        public User GetByUserName(string userName)
-        {
-            var result = m_userManager.GetUser(userName);
-            return result;
-        }
+        //// GET api/event/?userName={userName}
+        //public User GetByUserName(string userName)
+        //{
+        //    var result = m_comapanyManager.GetUser(userName);
+        //    return result;
+        //}
 
         // POST api/event - ?
-        public void Post(User value) // [FromBody]string value
+        public void Post(Company value) // [FromBody]string value
         {
-            m_userManager.SaveUser(value);
+            m_comapanyManager.SaveEntity(new [] {value});
         }
 
         //// PUT api/event/5  -- ?
@@ -53,7 +54,7 @@ namespace TransAppApi.Controllers
         // DELETE api/event/5
         public void Delete(int id)
         {
-            m_userManager.DeleteUser(id);
+            m_comapanyManager.DeleteEntity(id);
         }
 
         // authneticate
