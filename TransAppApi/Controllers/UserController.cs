@@ -7,6 +7,7 @@ using System.Web.Http;
 using TransAppApi.Entities;
 using TransAppApi.Managment;
 using TransAppApi.Models;
+using TransAppApi.SearchQueries;
 
 namespace TransAppApi.Controllers
 {
@@ -22,14 +23,14 @@ namespace TransAppApi.Controllers
         // GET api/event
         public IEnumerable<User> Get()
         {
-            var result = m_userManager.GetUsers();
+            var result = m_userManager.GetEntities(new EntitiesSearchQuery());
             return result;
         }
 
         // GET api/event/5
         public User Get(int id)
         {
-            var result = m_userManager.GetUser(id);
+            var result = m_userManager.GetEntity(id);
             return result;
         }
         // GET api/event/?userName={userName}
@@ -42,7 +43,7 @@ namespace TransAppApi.Controllers
         // POST api/event - ?
         public void Post(User value) // [FromBody]string value
         {
-            m_userManager.SaveUser(value);
+            m_userManager.SaveEntity(new [] {value});
         }
 
         //// PUT api/event/5  -- ?
@@ -53,7 +54,7 @@ namespace TransAppApi.Controllers
         // DELETE api/event/5
         public void Delete(int id)
         {
-            m_userManager.DeleteUser(id);
+            m_userManager.DeleteEntity(id);
         }
 
         // authneticate

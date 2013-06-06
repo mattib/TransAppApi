@@ -54,10 +54,10 @@ namespace TransAppApi.DataSources
                 comapny.Id = NewId();
             }
 
-            var MongoDbUser = new MongoDbCompany(comapny);
+            var mongoDbCompany = new MongoDbCompany(comapny);
 
             var comapniesCollection = GetCompaniesCollection();
-            comapniesCollection.Save(MongoDbUser);
+            comapniesCollection.Save(mongoDbCompany);
         }
 
         public void DeleteCompany(int id)

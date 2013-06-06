@@ -7,16 +7,8 @@ using TransAppApi.Models;
 
 namespace TransAppApi.Managment
 {
-    public interface IUserManager
+    public interface IUserManager : IEntityManager<User>
     {
-        User[] GetUsers();
-
-        User GetUser(int id);
-
         User GetUser(string userName);
-
-        void SaveUser(User user);
-
-        void DeleteUser(int id);
     }
 }

@@ -12,7 +12,7 @@ namespace TransAppApi.Managment
 
         TEntity GetEntity(int id);
 
-        void SaveEntity(TEntity[] events);
+        void SaveEntity(TEntity[] entities);
 
         void DeleteEntity(int id);
     }

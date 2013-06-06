@@ -5,6 +5,7 @@ using System.Web;
 using TransAppApi.DataSources;
 using TransAppApi.Entities;
 using TransAppApi.Models;
+using TransAppApi.SearchQueries;
 
 namespace TransAppApi.Managment
 {
@@ -17,30 +18,6 @@ namespace TransAppApi.Managment
             m_userDataSource = new MongoDbUsersDataSource();
         }
 
-        public User[] GetUsers()
-        {
-            var result = new List<User>();
-
-            var usersList = QueryUsers();
-
-            foreach (var mongoUser in usersList)
-            {
-                var user = new User(mongoUser);
-                result.Add(user);
-            }
-
-            return result.ToArray();
-        }
-
-        public User GetUser(int id)
-        {
-            var mongoUser = m_userDataSource.GetUser(id);
-
-            var result = new User(mongoUser);
-
-            return result;
-        }
-
         public User GetUser(string userName)
         {
             var mongoUser = m_userDataSource.GetUser(userName);
@@ -48,17 +25,6 @@ namespace TransAppApi.Managment
             var result = new User(mongoUser);
 
             return result;
-        }
-
-        public void SaveUser(User user)
-        {
-            var mongoUser = new MongoDbUser(user);
-            m_userDataSource.SaveUser(mongoUser);
-        }
-
-        public void DeleteUser(int id)
-        {
-            m_userDataSource.DeleteUser(id);
         }
 
         private IEnumerable<User> QueryUsers()
@@ -76,6 +42,44 @@ namespace TransAppApi.Managment
         {
             users = users.Where(item => (item.RowStatus == 0));
             return users;
+        }
+
+        public User[] GetEntities(EntitiesSearchQuery searchQuery)
+        {
+            var result = new List<User>();
+
+            var usersList = QueryUsers();
+
+            foreach (var mongoUser in usersList)
+            {
+                var user = new User(mongoUser);
+                result.Add(user);
+            }
+
+            return result.ToArray();
+        }
+
+        public User GetEntity(int id)
+        {
+            var mongoUser = m_userDataSource.GetUser(id);
+
+            var result = new User(mongoUser);
+
+            return result;
+        }
+
+        public void SaveEntity(User[] users)
+        {
+            foreach (var user in users)
+            {
+                var mongoUser = new MongoDbUser(user);
+                m_userDataSource.SaveUser(mongoUser);
+            }
+        }
+
+        public void DeleteEntity(int id)
+        {
+            m_userDataSource.DeleteUser(id);
         }
     }
 }

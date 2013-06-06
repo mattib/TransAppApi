@@ -42,9 +42,9 @@ namespace TransAppApi.Managment
             return result;
         }
 
-        public void SaveEntity(Company[] companies)
+        public void SaveEntity(Company[] tasks)
         {
-            foreach (var company in companies)
+            foreach (var company in tasks)
             {
                 var mongoCompany = new MongoDbCompany(company);
                 m_companiesDataSource.SaveCompany(mongoCompany);
@@ -72,40 +72,40 @@ namespace TransAppApi.Managment
             return eventsDataSource;
         }
 
-        //private IEnumerable<Event> FilterUserId(EventSearchQuery eventSearchQuery, IEnumerable<Company> events)
+        //private IEnumerable<Event> FilterUserId(EventSearchQuery eventSearchQuery, IEnumerable<Company> tasks)
         //{
         //    if (eventSearchQuery.UserId.HasValue)
         //    {
-        //        events = events.Where(item => (item.UserId == eventSearchQuery.UserId.Value));
+        //        tasks = tasks.Where(item => (item.UserId == eventSearchQuery.UserId.Value));
         //    }
-        //    return events;
+        //    return tasks;
         //}
 
-        //private IEnumerable<Event> FilterRowStatus(EventSearchQuery eventSearchQuery, IEnumerable<Company> events)
+        //private IEnumerable<Event> FilterRowStatus(EventSearchQuery eventSearchQuery, IEnumerable<Company> tasks)
         //{
         //    if (eventSearchQuery.RowStatus.HasValue)
         //    {
-        //        events = events.Where(item => (item.RowStatus == eventSearchQuery.RowStatus.Value));
+        //        tasks = tasks.Where(item => (item.RowStatus == eventSearchQuery.RowStatus.Value));
         //    }
-        //    return events;
+        //    return tasks;
         //}
 
-        //private IEnumerable<Event> FilterTaskId(EventSearchQuery eventSearchQuery, IEnumerable<Company> events)
+        //private IEnumerable<Event> FilterTaskId(EventSearchQuery eventSearchQuery, IEnumerable<Company> tasks)
         //{
         //    if (eventSearchQuery.TaskId.HasValue)
         //    {
-        //        events = events.Where(item => (item.TaskId == eventSearchQuery.TaskId.Value));
+        //        tasks = tasks.Where(item => (item.TaskId == eventSearchQuery.TaskId.Value));
         //    }
-        //    return events;
+        //    return tasks;
         //}
 
-        //private IEnumerable<Event> FilterTime(EventSearchQuery eventSearchQuery, IEnumerable<Company> events)
+        //private IEnumerable<Event> FilterTime(EventSearchQuery eventSearchQuery, IEnumerable<Company> tasks)
         //{
         //    if (eventSearchQuery.LastModified.HasValue)
         //    {
-        //        events = events.Where(item => (item.Time >= eventSearchQuery.LastModified.Value));
+        //        contacts = contacts.Where(item => (item.Time >= eventSearchQuery.LastModified.Value));
         //    }
-        //    return events;
+        //    return tasks;
         //}
     }
 }
