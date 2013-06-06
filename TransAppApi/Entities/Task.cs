@@ -50,7 +50,7 @@ namespace TransAppApi.Entities
         public DateTime LastModified { get; set; }
         public bool Accepted { get; set; }
         public bool PackageType { get; set; }
-        public bool Comment { get; set; }
+        public string Comment { get; set; }
         public bool RejectionReason { get; set; }
         public int ContactId { get; set; }
         public int RowStatus { get; set; }
