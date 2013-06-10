@@ -46,14 +46,83 @@ namespace TransAppApi.Managment
         {
             foreach (var task in tasks)
             {
-                var mongoDbTask = new MongoDbTask(task);
-                m_tasksDataSource.SaveTask(mongoDbTask);
+                if (TaskIsValid(task))
+                {
+                    task.LastModified = DateTime.UtcNow;
+                    var mongoDbTask = new MongoDbTask(task);
+                    m_tasksDataSource.SaveTask(mongoDbTask);
+                }
+                else
+                {
+                    throw new ArgumentNullException("The Creation of Task failed.");
+                }
             }
+        }
+
+        private bool TaskIsValid(Task task)
+        {
+            var result = true;
+
+            if (!UserIsValid(task.UserId))
+            {
+                result = false;
+            }
+
+            if (!CompanyIsValid(task.CompanyId))
+            {
+                result = false;
+            }
+
+            if (!AddressIsValid(task.SenderAddressId))
+            {
+                result = false;
+            }
+
+            if (!AddressIsValid(task.ReciverAddressId))
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        private bool UserIsValid(int userId)
+        {
+            var userManager = new UserManager();
+            var result = userManager.EntityExists(userId);
+           
+            return result;
+        }
+
+        private bool CompanyIsValid(int comapanyId)
+        {
+            var companyManager = new CompanyManager();
+            var result = companyManager.EntityExists(comapanyId);
+
+            return result;
+        }
+
+        private bool AddressIsValid(int addressId)
+        {
+            var addressManager = new AddressManager();
+            var result = addressManager.EntityExists(addressId);
+
+            return result;
         }
 
         public void DeleteEntity(int id)
         {
             m_tasksDataSource.DeleteTask(id);
+        }
+
+        public bool EntityExists(int id)
+        {
+            var result = false;
+            if (m_tasksDataSource.GetTask(id) != null)
+            {
+                result = true;
+            }
+            return result;
         }
 
         private IEnumerable<Task> QueryEvents(EntitiesSearchQuery entitiesSearchQuery)

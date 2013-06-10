@@ -56,6 +56,16 @@ namespace TransAppApi.Managment
             m_customersDataSource.DeleteCustomer(id);
         }
 
+        public bool EntityExists(int id)
+        {
+            var result = false;
+            if (m_customersDataSource.GetCustomer(id) != null)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         private IEnumerable<Customer> QueryEvents(EntitiesSearchQuery entitiesSearchQuery)
         {
             var addressesList = new List<Customer>();

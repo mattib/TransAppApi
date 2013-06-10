@@ -20,38 +20,49 @@ namespace TransAppApi.Controllers
             m_userManager = new UserManager();
         }
 
-        // GET api/event
+        // GET api/user
         public IEnumerable<User> Get()
         {
             var result = m_userManager.GetEntities(new EntitiesSearchQuery());
             return result;
         }
 
-        // GET api/event/5
+        // GET api/user/{id}
         public User Get(int id)
         {
             var result = m_userManager.GetEntity(id);
             return result;
         }
-        // GET api/event/?userName={userName}
+
+        // GET api/user/?userName={userName}
         public User GetByUserName(string userName)
         {
             var result = m_userManager.GetUser(userName);
             return result;
         }
 
-        // POST api/event - ?
+        // GET api/user/?comapnyId={comapnyId}
+        public IEnumerable<User> GetByCompanyId(int comapnyId)
+        {
+            var usersSearchQuery = new UsersSearchQuery();
+            usersSearchQuery.CompanyId = comapnyId;
+
+            var result = m_userManager.GetEntities(usersSearchQuery);
+            return result;
+        }
+
+        // POST api/user - ?
         public void Post(User value) // [FromBody]string value
         {
             m_userManager.SaveEntity(new [] {value});
         }
 
-        //// PUT api/event/5  -- ?
+        //// PUT api/user/5  -- ?
         //public void Put(int id, [FromBody]string value)
         //{
         //}
 
-        // DELETE api/event/5
+        // DELETE api/user/5
         public void Delete(int id)
         {
             m_userManager.DeleteEntity(id);

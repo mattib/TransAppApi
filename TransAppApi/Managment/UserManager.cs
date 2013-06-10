@@ -27,28 +27,11 @@ namespace TransAppApi.Managment
             return result;
         }
 
-        private IEnumerable<User> QueryUsers()
-        {
-            var usersList = new List<Event>();
-
-            IEnumerable<User> usersDataSource = m_userDataSource.GetAll();
-            
-            usersDataSource = FilterRowStatus(usersDataSource);
-
-            return usersDataSource;
-        }
-
-        private IEnumerable<User> FilterRowStatus(IEnumerable<User> users)
-        {
-            users = users.Where(item => (item.RowStatus == 0));
-            return users;
-        }
-
         public User[] GetEntities(EntitiesSearchQuery searchQuery)
         {
             var result = new List<User>();
 
-            var usersList = QueryUsers();
+            var usersList = QueryUsers(searchQuery);
 
             foreach (var mongoUser in usersList)
             {
@@ -81,5 +64,48 @@ namespace TransAppApi.Managment
         {
             m_userDataSource.DeleteUser(id);
         }
+
+        public bool EntityExists(int id)
+        {
+            var result = false;
+            if (m_userDataSource.GetUser(id) != null)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        private IEnumerable<User> QueryUsers(EntitiesSearchQuery entitiesSearchQuery)
+        {
+            var tasksList = new List<Task>();
+
+            var usersSearchQuery = entitiesSearchQuery as UsersSearchQuery;
+
+            IEnumerable<User> usersDataSource = m_userDataSource.GetAll();
+
+            usersDataSource = FilterCompanyId(usersSearchQuery, usersDataSource);
+
+            usersDataSource = FilterRowStatus(usersSearchQuery, usersDataSource);
+            return usersDataSource;
+        }
+
+        private IEnumerable<User> FilterRowStatus(UsersSearchQuery usersSearchQuery, IEnumerable<User> users)
+        {
+            if (usersSearchQuery.RowStatus.HasValue)
+            {
+                users = users.Where(user => (user.RowStatus == usersSearchQuery.RowStatus.Value));
+            }
+            return users;
+        }
+
+        private IEnumerable<User> FilterCompanyId(UsersSearchQuery usersSearchQuery, IEnumerable<User> users)
+        {
+            if (usersSearchQuery.CompanyId.HasValue)
+            {
+                users = users.Where(user => (user.CompanyId == usersSearchQuery.CompanyId.Value));
+            }
+            return users;
+        }
+
     }
 }

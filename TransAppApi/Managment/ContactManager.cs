@@ -56,6 +56,16 @@ namespace TransAppApi.Managment
             m_contactsDataSource.DeleteContact(id);
         }
 
+        public bool EntityExists(int id)
+        {
+            var result = false;
+            if (m_contactsDataSource.GetContact(id) != null)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         private IEnumerable<Contact> QueryEvents(EntitiesSearchQuery eventSearchQuery)
         {
             var eventsList = new List<Contact>();

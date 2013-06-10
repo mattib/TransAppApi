@@ -15,5 +15,7 @@ namespace TransAppApi.Managment
         void SaveEntity(TEntity[] entities);
 
         void DeleteEntity(int id);
+
+        bool EntityExists(int id);
     }
 }

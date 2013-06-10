@@ -56,6 +56,16 @@ namespace TransAppApi.Managment
             m_addressesDataSource.DeleteAddress(id);
         }
 
+        public bool EntityExists(int id)
+        {
+            var result = false;
+            if (m_addressesDataSource.GetAddress(id) != null)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         private IEnumerable<Address> QueryEvents(EntitiesSearchQuery entitiesSearchQuery)
         {
             var addressesList = new List<Address>();

@@ -222,6 +222,7 @@
     <Compile Include="Models\MongoDbUser.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchQueries\UsersSearchQuery.cs" />
     <Compile Include="SearchQueries\EventSearchQuery.cs" />
     <Compile Include="SearchQueries\EntitiesSearchQuery.cs" />
     <Compile Include="SearchQueries\TasksSearchQuery.cs" />

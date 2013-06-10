@@ -56,6 +56,16 @@ namespace TransAppApi.Managment
             m_companiesDataSource.DeleteCompany(id);
         }
 
+        public bool EntityExists(int id)
+        {
+            var result = false;
+            if (m_companiesDataSource.GetCompany(id) != null)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         private IEnumerable<Company> QueryEvents(EntitiesSearchQuery eventSearchQuery)
         {
             var eventsList = new List<Company>();
