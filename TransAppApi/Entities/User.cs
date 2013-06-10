@@ -13,7 +13,7 @@ namespace TransAppApi.Entities
         public User(User user)
         {
             Id = user.Id;
-            FisrtName = user.FisrtName;
+            FirstName = user.FirstName;
             LastName = user.LastName;
             UserName = user.UserName;
             PhoneNumber = user.PhoneNumber;
@@ -29,7 +29,7 @@ namespace TransAppApi.Entities
         }
 
         public int Id { get; set; }
-        public string FisrtName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string PhoneNumber { get; set; }
