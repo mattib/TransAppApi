@@ -23,7 +23,7 @@ namespace TransAppApi.Controllers
         // GET api/user
         public IEnumerable<User> Get()
         {
-            var result = m_userManager.GetEntities(new EntitiesSearchQuery());
+            var result = m_userManager.GetEntities(new UsersSearchQuery());
             return result;
         }
 
