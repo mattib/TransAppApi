@@ -24,28 +24,19 @@ namespace TransAppApi.DataSources
         {
             var comapniesCollection = GetCompaniesCollection();
             var query = Query<MongoDbCompany>.Where(e => e.RowStatus != 1);
-            var comapnies = comapniesCollection.Find(query);
+            var companies = comapniesCollection.Find(query);
 
-            return comapnies.ToArray();
+            return ToCompaniesArray(companies);
         }
 
         public Company GetCompany(int id)
         {
             var comapniesCollection = GetCompaniesCollection();
             var query = Query<MongoDbCompany>.EQ(e => e.Id, id);
-            var comapny = comapniesCollection.FindOne(query);
+            var company = comapniesCollection.FindOne(query);
 
-            return comapny;
+            return ToCompany(company);
         }
-
-        //public Company GetUser(string userName)
-        //{
-        //    var comapniesCollection = GetCompaniesCollection();
-        //    var query = Query<MongoDbCompany>.EQ(e => e.UserName, userName);
-        //    var comapny = comapniesCollection.FindOne(query);
-
-        //    return comapny;
-        //}
 
         public void SaveCompany(Company comapny)
         {
@@ -72,9 +63,9 @@ namespace TransAppApi.DataSources
         {
             var companies = GetAll();
             var result = 0;
-            foreach (var item in companies)
+            foreach (var company in companies)
             {
-                var mongoDbCompany = (MongoDbCompany)item;
+                var mongoDbCompany = new MongoDbCompany (company);
                 if (mongoDbCompany.MongoId.Pid > result)
                 {
                     result = mongoDbCompany.MongoId.Pid;
@@ -82,6 +73,42 @@ namespace TransAppApi.DataSources
             }
 
             return result + 1;
+        }
+
+        private Company[] ToCompaniesArray(IEnumerable<MongoDbCompany> mongoDbCompanies)
+        {
+            var result = mongoDbCompanies.Select(ToCompany);
+            return result.ToArray();
+        }
+
+        private Company ToCompany(MongoDbCompany mongoDbCompany)
+        {
+
+            var company = new Company();
+            company.Id = mongoDbCompany.Id;
+            company.Name = mongoDbCompany.Name;
+            company.CompanyUserName = mongoDbCompany.CompanyUserName;
+
+
+            var address = GetAddress(mongoDbCompany);
+            company.Address = new Address(address);
+            company.Created = mongoDbCompany.Created;
+            company.LastModified = mongoDbCompany.LastModified;
+            company.RowStatus = mongoDbCompany.RowStatus;
+            company.AmountOfUsers = mongoDbCompany.AmountOfUsers;
+            company.AmountOfTasksPerUser = mongoDbCompany.AmountOfTasksPerUser;
+            company.CompanyInfo = mongoDbCompany.CompanyInfo;
+
+            return company;
+        }
+
+        private static Address GetAddress(MongoDbCompany mongoDbCompany)
+        {
+            var result = default(Address);
+            var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
+
+            result = mongoDbAddressesDataSource.GetAddress(mongoDbCompany.AddressId);
+            return result;
         }
     }
 }

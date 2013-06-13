@@ -26,7 +26,7 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbContact>.Where(e => e.RowStatus != 1);
             var contacts = contactsCollection.Find(query);
 
-            return contacts.ToArray();
+            return ToContactsArray(contacts);
         }
 
         public Contact GetContact(int id)
@@ -35,7 +35,7 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbContact>.EQ(e => e.Id, id);
             var contact = contactsCollection.FindOne(query);
 
-            return contact;
+            return ToContact(contact);
         }
 
         //public Company GetUser(string userName)
@@ -74,7 +74,7 @@ namespace TransAppApi.DataSources
             var result = 0;
             foreach (var contact in contacts)
             {
-                var mongoDbContact = (MongoDbContact)contact;
+                var mongoDbContact = new MongoDbContact(contact);
                 if (mongoDbContact.MongoId.Pid > result)
                 {
                     result = mongoDbContact.MongoId.Pid;
@@ -82,6 +82,40 @@ namespace TransAppApi.DataSources
             }
 
             return result + 1;
+        }
+
+        private Contact[] ToContactsArray(IEnumerable<MongoDbContact> mongoDbContacts)
+        {
+            var result = mongoDbContacts.Select(ToContact);
+            return result.ToArray();
+        }
+
+        private Contact ToContact(MongoDbContact mongoDbContact)
+        {
+            var contact = new Contact();
+            contact.Id = mongoDbContact.Id;
+            contact.FirstName = mongoDbContact.FirstName;
+            contact.LastName = mongoDbContact.LastName;
+            contact.OfficeNumber = mongoDbContact.OfficeNumber;
+            contact.CellNumber = mongoDbContact.CellNumber;
+            contact.Email = mongoDbContact.Email;
+
+            var address = GetAddress(mongoDbContact);
+            contact.Address = new Address(address);
+
+            contact.LastModified = mongoDbContact.LastModified;
+            contact.RowStatus = mongoDbContact.RowStatus;
+
+            return contact;
+        }
+
+        private static Address GetAddress(MongoDbContact mongoDbContact)
+        {
+            var result = default(Address);
+            var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
+
+            result = mongoDbAddressesDataSource.GetAddress(mongoDbContact.AddressId);
+            return result;
         }
     }
 }

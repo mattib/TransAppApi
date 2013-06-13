@@ -55,8 +55,7 @@ namespace TransAppApi.Managment
         {
             foreach (var user in users)
             {
-                var mongoUser = new MongoDbUser(user);
-                m_userDataSource.SaveUser(mongoUser);
+                m_userDataSource.SaveUser(user);
             }
         }
 
@@ -67,11 +66,7 @@ namespace TransAppApi.Managment
 
         public bool EntityExists(int id)
         {
-            var result = false;
-            if (m_userDataSource.GetUser(id) != null)
-            {
-                result = true;
-            }
+            var result = m_userDataSource.GetUser(id) != null;
             return result;
         }
 
@@ -102,7 +97,7 @@ namespace TransAppApi.Managment
         {
             if (usersSearchQuery.CompanyId.HasValue)
             {
-                users = users.Where(user => (user.CompanyId == usersSearchQuery.CompanyId.Value));
+                users = users.Where(user => (user.Company.Id == usersSearchQuery.CompanyId.Value));
             }
             return users;
         }

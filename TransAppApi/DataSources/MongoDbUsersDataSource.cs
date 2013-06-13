@@ -26,35 +26,35 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbUser>.Where(e => e.RowStatus != 1);
             var Users = UsersCollection.Find(query);
 
-            return Users.ToArray();
+            return ToUsersArray(Users);
         }
 
         public User GetUser(int id)
         {
             var UsersCollection = GetUsersCollection();
             var query = Query<MongoDbUser>.EQ(e => e.Id, id);
-            var UserItem = UsersCollection.FindOne(query);
+            var user = UsersCollection.FindOne(query);
 
-            return UserItem;
+            return ToUser(user);
         }
 
         public User GetUser(string userName)
         {
             var UsersCollection = GetUsersCollection();
             var query = Query<MongoDbUser>.EQ(e => e.UserName, userName);
-            var UserItem = UsersCollection.FindOne(query);
+            var user = UsersCollection.FindOne(query);
 
-            return UserItem;
+            return ToUser(user);
         }
 
-        public void SaveUser(User UserItem)
+        public void SaveUser(User user)
         {
-            if (UserItem.Id == 0)
+            if (user.Id == 0)
             {
-                UserItem.Id = NewId();
+                user.Id = NewId();
             }
 
-            var MongoDbUser = new MongoDbUser(UserItem);
+            var MongoDbUser = new MongoDbUser(user);
 
             var UsersCollection = GetUsersCollection();
             UsersCollection.Save(MongoDbUser);
@@ -72,9 +72,9 @@ namespace TransAppApi.DataSources
         {
             var Users = GetAll();
             var result = 0;
-            foreach (var item in Users)
+            foreach (var user in Users)
             {
-                var MongoDbUser = (MongoDbUser)item;
+                var MongoDbUser = new MongoDbUser(user);
                 if (MongoDbUser.MongoId.Pid > result)
                 {
                     result = MongoDbUser.MongoId.Pid;
@@ -82,6 +82,45 @@ namespace TransAppApi.DataSources
             }
 
             return result + 1;
+        }
+
+        private User[] ToUsersArray(IEnumerable<MongoDbUser> mongoDbUsers)
+        {
+            var result = mongoDbUsers.Select(ToUser);
+            return result.ToArray();
+        }
+
+        private User ToUser(MongoDbUser mongoDbUser)
+        {
+            var user = new User();
+            user.Id = mongoDbUser.Id;
+            user.FirstName = mongoDbUser.FirstName;
+            user.LastName = mongoDbUser.LastName;
+            user.UserName = mongoDbUser.UserName;
+            user.PhoneNumber = mongoDbUser.PhoneNumber  ;
+            user.Email = mongoDbUser.Email;
+            user.ReferenceId = mongoDbUser.ReferenceId;
+            user.Password = mongoDbUser.Password;
+
+            var company = GetCompany(mongoDbUser);
+            user.Company = new Company(company);
+
+            user.Role = mongoDbUser.Role;
+            user.TimeCreated = mongoDbUser.TimeCreated;
+            user.LastModified = mongoDbUser.LastModified;
+            user.RowStatus = mongoDbUser.RowStatus;
+            user.Active = mongoDbUser.Active;
+            
+            return user;
+        }
+
+        private static Company GetCompany(MongoDbUser mongoDbUser)
+        {
+            var result = default(Company);
+            var mongoDbCompaniesDataSource = new MongoDbCompaniesDataSource();
+
+            result = mongoDbCompaniesDataSource.GetCompany(mongoDbUser.CompanyId);
+            return result;
         }
     }
 }

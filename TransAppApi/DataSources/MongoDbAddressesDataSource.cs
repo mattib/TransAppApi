@@ -26,7 +26,7 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbAddress>.Where(e => e.RowStatus != 1);
             var addresses = addressesCollection.Find(query);
 
-            return addresses.ToArray();
+            return ToAddressesArray(addresses);
         }
 
         public Address GetAddress(int id)
@@ -35,17 +35,8 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbAddress>.EQ(e => e.Id, id);
             var address = addressesCollection.FindOne(query);
 
-            return address;
+            return ToAddress(address);
         }
-
-        //public Company GetUser(string userName)
-        //{
-        //    var comapniesCollection = GetContactsCollection();
-        //    var query = Query<MongoDbCompany>.EQ(e => e.UserName, userName);
-        //    var contact = comapniesCollection.FindOne(query);
-
-        //    return contact;
-        //}
 
         public void SaveAddress(Address address)
         {
@@ -54,7 +45,7 @@ namespace TransAppApi.DataSources
                 address.Id = NewId();
             }
 
-            var mongoDbAddress = new MongoDbAddress(address);
+            var mongoDbAddress = new MongoDbAddress(address) {LastModified = DateTime.UtcNow};
 
             var addressesCollection = GetAddressesCollection();
             addressesCollection.Save(mongoDbAddress);
@@ -70,11 +61,11 @@ namespace TransAppApi.DataSources
 
         public int NewId()
         {
-            var adressed = GetAll();
+            var addresses = GetAll();
             var result = 0;
-            foreach (var adress in adressed)
+            foreach (var adress in addresses)
             {
-                var mongoDbAddress = (MongoDbAddress)adress;
+                var mongoDbAddress = new MongoDbAddress(adress);
                 if (mongoDbAddress.MongoId.Pid > result)
                 {
                     result = mongoDbAddress.MongoId.Pid;
@@ -82,6 +73,27 @@ namespace TransAppApi.DataSources
             }
 
             return result + 1;
+        }
+
+        private Address[] ToAddressesArray(IEnumerable<MongoDbAddress> mongoDbAddresses)
+        {
+            var result =  mongoDbAddresses.Select(ToAddress);
+            return result.ToArray();
+        }
+
+        private Address ToAddress(MongoDbAddress mongoDbAddress)
+        {
+            var address = new Address();
+            address.Id = mongoDbAddress.Id;
+            address.StreetName = mongoDbAddress.StreetName;
+            address.StreetNumber = mongoDbAddress.StreetNumber;
+            address.City = mongoDbAddress.City;
+            address.District = mongoDbAddress.District;
+            address. Country = mongoDbAddress.Country;
+            address.PostalCode = mongoDbAddress.PostalCode;
+            address.LastModified = mongoDbAddress.LastModified;
+            address.RowStatus = mongoDbAddress.RowStatus;
+            return address;
         }
     }
 }

@@ -49,8 +49,7 @@ namespace TransAppApi.Managment
                 if (TaskIsValid(task))
                 {
                     task.LastModified = DateTime.UtcNow;
-                    var mongoDbTask = new MongoDbTask(task);
-                    m_tasksDataSource.SaveTask(mongoDbTask);
+                    m_tasksDataSource.SaveTask(task);
                 }
                 else
                 {
@@ -63,22 +62,22 @@ namespace TransAppApi.Managment
         {
             var result = true;
 
-            if (!UserIsValid(task.UserId))
+            if (!UserIsValid(task.User.Id))
             {
                 result = false;
             }
 
-            if (!CompanyIsValid(task.CompanyId))
+            if (!CompanyIsValid(task.Company.Id))
             {
                 result = false;
             }
 
-            if (!AddressIsValid(task.SenderAddressId))
+            if (!AddressIsValid(task.SenderAddress.Id))
             {
                 result = false;
             }
 
-            if (!AddressIsValid(task.ReciverAddressId))
+            if (!AddressIsValid(task.ReciverAddress.Id))
             {
                 result = false;
             }
@@ -117,11 +116,7 @@ namespace TransAppApi.Managment
 
         public bool EntityExists(int id)
         {
-            var result = false;
-            if (m_tasksDataSource.GetTask(id) != null)
-            {
-                result = true;
-            }
+            var result = m_tasksDataSource.GetTask(id) != null;
             return result;
         }
 
@@ -149,7 +144,7 @@ namespace TransAppApi.Managment
         {
             if (tasksSearchQuery.UserId.HasValue)
             {
-                tasks = tasks.Where(item => (item.UserId == tasksSearchQuery.UserId.Value));
+                tasks = tasks.Where(item => (item.User.Id == tasksSearchQuery.UserId.Value));
             }
             return tasks;
         }
@@ -158,7 +153,7 @@ namespace TransAppApi.Managment
         {
             if (tasksSearchQuery.CompanyId.HasValue)
             {
-                tasks = tasks.Where(item => (item.CompanyId == tasksSearchQuery.CompanyId.Value));
+                tasks = tasks.Where(item => (item.Company.Id == tasksSearchQuery.CompanyId.Value));
             }
             return tasks;
         }

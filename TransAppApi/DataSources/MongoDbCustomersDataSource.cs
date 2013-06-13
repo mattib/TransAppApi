@@ -26,7 +26,7 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbCustomer>.Where(e => e.RowStatus != 1);
             var customers = customersCollection.Find(query);
 
-            return customers.ToArray();
+            return ToCustomersArray(customers);
         }
 
         public Customer GetCustomer(int id)
@@ -35,17 +35,8 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbCustomer>.EQ(e => e.Id, id);
             var customer = customersCollection.FindOne(query);
 
-            return customer;
+            return ToCustomer(customer);
         }
-
-        //public Company GetUser(string userName)
-        //{
-        //    var comapniesCollection = GetContactsCollection();
-        //    var query = Query<MongoDbCompany>.EQ(e => e.UserName, userName);
-        //    var contact = comapniesCollection.FindOne(query);
-
-        //    return contact;
-        //}
 
         public void SaveCustomer(Customer customer)
         {
@@ -74,7 +65,7 @@ namespace TransAppApi.DataSources
             var result = 0;
             foreach (var customer in customers)
             {
-                var mongoDbCustomer = (MongoDbCustomer)customer;
+                var mongoDbCustomer = new MongoDbCustomer(customer);
                 if (mongoDbCustomer.MongoId.Pid > result)
                 {
                     result = mongoDbCustomer.MongoId.Pid;
@@ -82,6 +73,60 @@ namespace TransAppApi.DataSources
             }
 
             return result + 1;
+        }
+
+        private Customer[] ToCustomersArray(IEnumerable<MongoDbCustomer> mongoDbCustomers)
+        {
+            var result = mongoDbCustomers.Select(ToCustomer);
+            return result.ToArray();
+        }
+
+        private Customer ToCustomer(MongoDbCustomer mongoDbCustomer)
+        {
+            var customer = new Customer();
+            customer.Id = mongoDbCustomer.Id;
+            customer.Name = mongoDbCustomer.Name;
+
+            var address = GetAddress(mongoDbCustomer);
+            customer.Address = new Address(address);
+
+            var contact = GetContact(mongoDbCustomer);
+            customer.Contact = new Contact(contact);
+
+            var company = GetCompany(mongoDbCustomer);
+            customer.Company = new Company(company);
+
+            customer.LastModified = mongoDbCustomer.LastModified;
+            customer.RowStatus = mongoDbCustomer.RowStatus;
+
+            return customer;
+        }
+
+        private static Address GetAddress(MongoDbCustomer mongoDbCustomer)
+        {
+            var result = default(Address);
+            var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
+
+            result = mongoDbAddressesDataSource.GetAddress(mongoDbCustomer.AddressId);
+            return result;
+        }
+
+        private static Contact GetContact(MongoDbCustomer mongoDbCustomer)
+        {
+            var result = default(Contact);
+            var mongoDbContactsDataSource = new MongoDbContactsDataSource();
+
+            result = mongoDbContactsDataSource.GetContact(mongoDbCustomer.ContactId);
+            return result;
+        }
+
+        private static Company GetCompany(MongoDbCustomer mongoDbCustomer)
+        {
+            var result = default(Company);
+            var mongoDbCompaniesDataSource = new MongoDbCompaniesDataSource();
+
+            result = mongoDbCompaniesDataSource.GetCompany(mongoDbCustomer.CompanyId);
+            return result;
         }
     }
 }

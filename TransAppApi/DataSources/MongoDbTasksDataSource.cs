@@ -26,7 +26,7 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbTask>.Where(e => e.RowStatus != 1);
             var tasks = tasksCollection.Find(query);
 
-            return tasks.ToArray();
+            return ToTasksArray(tasks);
         }
 
         public Task GetTask(int id)
@@ -35,17 +35,8 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbTask>.EQ(e => e.Id, id);
             var task = tasksCollection.FindOne(query);
 
-            return task;
+            return ToTask(task);
         }
-
-        //public Company GetUser(string userName)
-        //{
-        //    var comapniesCollection = GetContactsCollection();
-        //    var query = Query<MongoDbCompany>.EQ(e => e.UserName, userName);
-        //    var contact = comapniesCollection.FindOne(query);
-
-        //    return contact;
-        //}
 
         public void SaveTask(Task task)
         {
@@ -74,7 +65,7 @@ namespace TransAppApi.DataSources
             var result = 0;
             foreach (var task in tasks)
             {
-                var mongoDbTask = (MongoDbTask)task;
+                var mongoDbTask = new MongoDbTask(task);
                 if (mongoDbTask.MongoId.Pid > result)
                 {
                     result = mongoDbTask.MongoId.Pid;
@@ -82,6 +73,88 @@ namespace TransAppApi.DataSources
             }
 
             return result + 1;
+        }
+
+        private Task[] ToTasksArray(IEnumerable<MongoDbTask> mongoDbTasks)
+        {
+            var result = mongoDbTasks.Select(ToTask);
+            return result.ToArray();
+        }
+
+        private Task ToTask(MongoDbTask mongoDbTask)
+        {
+            var task = new Task();
+            task.Id = mongoDbTask.Id;
+            task.DeliveryNumber = mongoDbTask.DeliveryNumber;
+
+            var user = GetUser(mongoDbTask);
+            task.User = new User(user);
+
+            var company = GetCompany(mongoDbTask);
+            task.Company = new Company(company);
+
+            var senderAddress = GetAddress(mongoDbTask.SenderAddressId);
+            task.SenderAddress = new Address(senderAddress);
+
+            var reciverAddress = GetAddress(mongoDbTask.ReciverAddressId);
+            task.ReciverAddress = new Address(reciverAddress);
+
+            task.TaskStatus = mongoDbTask.TaskStatus;
+            task.Created = mongoDbTask.Created;
+            task.PickedUpAt = mongoDbTask.PickedUpAt;
+            task.DeliveredAt = mongoDbTask.DeliveredAt;
+            task.PickUpTime = mongoDbTask.PickUpTime;
+            task.DeliveryTime = mongoDbTask.DeliveryTime;
+            task.LastModified = mongoDbTask.LastModified;
+            task.Comment = mongoDbTask.Comment;
+
+            var contact = GetContact(mongoDbTask);
+            task.Contact = new Contact(contact);
+
+            task.RowStatus = mongoDbTask.RowStatus;
+            task.TaskType = mongoDbTask.TaskType;
+            task.DataExtention = mongoDbTask.DataExtention;
+
+            return task;
+        }
+
+        private static User GetUser(MongoDbTask mongoDbTask)
+        {
+            var result = default(User);
+            var mongoDbUsersDataSource = new MongoDbUsersDataSource();
+
+            result = mongoDbUsersDataSource.GetUser(mongoDbTask.UserId);
+            return result;
+        }
+
+        private static Address GetAddress(int? addressId)
+        {
+            var result = default(Address);
+            if (addressId.HasValue)
+            {
+                var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
+
+                result = mongoDbAddressesDataSource.GetAddress(addressId.Value);
+            }
+            return result;
+        }
+
+        private static Contact GetContact(MongoDbTask mongoDbTask)
+        {
+            var result = default(Contact);
+            var mongoDbContactsDataSource = new MongoDbContactsDataSource();
+
+            result = mongoDbContactsDataSource.GetContact(mongoDbTask.ContactId);
+            return result;
+        }
+
+        private static Company GetCompany(MongoDbTask mongoDbTask)
+        {
+            var result = default(Company);
+            var mongoDbCompaniesDataSource = new MongoDbCompaniesDataSource();
+
+            result = mongoDbCompaniesDataSource.GetCompany(mongoDbTask.CompanyId);
+            return result;
         }
     }
 }

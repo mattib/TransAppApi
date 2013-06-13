@@ -7,7 +7,7 @@ using TransAppApi.Entities;
 
 namespace TransAppApi.Models
 {
-    public class MongoDbCustomer : Customer
+    public class MongoDbCustomer
     {
         private ObjectId m_mongoId;
 
@@ -16,11 +16,23 @@ namespace TransAppApi.Models
         }
 
         public MongoDbCustomer(Customer customer)
-            : base(customer)
         {
-            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(customer.Id.ToString()), 0);
+            Name = customer.Name;
+            AddressId = customer.Address.Id;
+            ContactId = customer.Contact.Id;
+            CompanyId = customer.Company.Id;
+            LastModified = customer.LastModified;
+            RowStatus = customer.RowStatus;
         }
 
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int AddressId { get; set; }
+        public int ContactId { get; set; }
+        public int CompanyId { get; set; }
+        public DateTime LastModified { get; set; }
+        public int RowStatus { get; set; }
         public ObjectId MongoId
         {
             get { return m_mongoId; }

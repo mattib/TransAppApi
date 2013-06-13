@@ -9,73 +9,73 @@ using TransAppApi.SearchQueries;
 
 namespace TransAppApi.Managment
 {
-    public class CustomerManager : IEntityManager<Customer>
+    public class AuthenticationManager : IEntityManager<AuthenticationUser>
     {
-        private MongoDbCustomersDataSource m_customersDataSource;
+        private MongoDbUsersDataSource m_usersDataSource;
 
-        public CustomerManager()
+        public AuthenticationManager()
         {
-            m_customersDataSource = new MongoDbCustomersDataSource();
+            m_usersDataSource = new MongoDbUsersDataSource();
         }
 
-        public Customer[] GetEntities(EntitiesSearchQuery searchQuery)
+        public AuthenticationUser[] GetEntities(EntitiesSearchQuery searchQuery)
         {
-            var result = new List<Customer>();
-
-            var customersList = QueryEvents(searchQuery);
-
-            foreach (var mongoDbCustomer in customersList)
-            {
-                var customer = new Customer(mongoDbCustomer);
-                result.Add(customer);
-            }
-
-            return result.ToArray();
+            throw new NotImplementedException();
         }
 
-        public Customer GetEntity(int id)
+        public AuthenticationUser GetEntity(int id)
         {
-            var mongoCustomer = m_customersDataSource.GetCustomer(id);
+            var mongoDbUser = m_usersDataSource.GetUser(id);
 
-            var result = new Customer(mongoCustomer);
+            var result = new AuthenticationUser(mongoDbUser);
 
             return result;
         }
 
-        public void SaveEntity(Customer[] customers)
+        public void SaveEntity(AuthenticationUser[] entities)
         {
-            foreach (var customer in customers)
-            {
-                m_customersDataSource.SaveCustomer(customer);
-            }
+            throw new NotImplementedException();
         }
 
         public void DeleteEntity(int id)
         {
-            m_customersDataSource.DeleteCustomer(id);
+            throw new NotImplementedException();
         }
+
+        //public void SaveEntity(AuthenticationUser[] tasks)
+        //{
+        //    foreach (var address in tasks)
+        //    {
+        //        m_usersDataSource.SaveAddress(address);
+        //    }
+        //}
+
+        //public void DeleteEntity(int id)
+        //{
+        //    m_usersDataSource.DeleteAddress(id);
+        //}
 
         public bool EntityExists(int id)
         {
-            var result = m_customersDataSource.GetCustomer(id) != null;
+            var result = m_usersDataSource.GetUser(id) != null;
             return result;
         }
 
-        private IEnumerable<Customer> QueryEvents(EntitiesSearchQuery entitiesSearchQuery)
-        {
-            var addressesList = new List<Customer>();
+        //private IEnumerable<AuthenticationUser> QueryEvents(EntitiesSearchQuery entitiesSearchQuery)
+        //{
+        //    var addressesList = new List<Address>();
 
-            IEnumerable<Customer> customerDataSource = m_customersDataSource.GetAll();
+        //    IEnumerable<AuthenticationUser> addressesDataSource = m_usersDataSource.GetAll();
 
-            //eventsDataSource = FilterUserId(entitiesSearchQuery, eventsDataSource);
+        //    //eventsDataSource = FilterUserId(entitiesSearchQuery, eventsDataSource);
 
-            //eventsDataSource = FilterRowStatus(entitiesSearchQuery, eventsDataSource);
+        //    //eventsDataSource = FilterRowStatus(entitiesSearchQuery, eventsDataSource);
 
-            //eventsDataSource = FilterTaskId(entitiesSearchQuery, eventsDataSource);
+        //    //eventsDataSource = FilterTaskId(entitiesSearchQuery, eventsDataSource);
 
-            //eventsDataSource = FilterTime(entitiesSearchQuery, eventsDataSource);
-            return customerDataSource;
-        }
+        //    //eventsDataSource = FilterTime(entitiesSearchQuery, eventsDataSource);
+        //    return addressesDataSource;
+        //}
 
         //private IEnumerable<Event> FilterUserId(EventSearchQuery entitiesSearchQuery, IEnumerable<Company> tasks)
         //{

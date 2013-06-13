@@ -46,8 +46,7 @@ namespace TransAppApi.Managment
         {
             foreach (var contact in tasks)
             {
-                var mongoDbContact = new MongoDbContact(contact);
-                m_contactsDataSource.SaveContact(mongoDbContact);
+                m_contactsDataSource.SaveContact(contact);
             }
         }
 
@@ -58,11 +57,7 @@ namespace TransAppApi.Managment
 
         public bool EntityExists(int id)
         {
-            var result = false;
-            if (m_contactsDataSource.GetContact(id) != null)
-            {
-                result = true;
-            }
+            var result = m_contactsDataSource.GetContact(id) != null;
             return result;
         }
 

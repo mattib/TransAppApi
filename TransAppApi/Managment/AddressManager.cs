@@ -20,17 +20,9 @@ namespace TransAppApi.Managment
 
         public Address[] GetEntities(EntitiesSearchQuery searchQuery)
         {
-            var result = new List<Address>();
-
             var addressesList = QueryEvents(searchQuery);
 
-            foreach (var mongoDbAddress in addressesList)
-            {
-                var address = new Address(mongoDbAddress);
-                result.Add(address);
-            }
-
-            return result.ToArray();
+            return addressesList.Select(mongoDbAddress => new Address(mongoDbAddress)).ToArray();
         }
 
         public Address GetEntity(int id)
@@ -46,8 +38,7 @@ namespace TransAppApi.Managment
         {
             foreach (var address in tasks)
             {
-                var mongoDbAddress = new MongoDbAddress(address);
-                m_addressesDataSource.SaveAddress(mongoDbAddress);
+                m_addressesDataSource.SaveAddress(address);
             }
         }
 
@@ -58,11 +49,7 @@ namespace TransAppApi.Managment
 
         public bool EntityExists(int id)
         {
-            var result = false;
-            if (m_addressesDataSource.GetAddress(id) != null)
-            {
-                result = true;
-            }
+            var result = m_addressesDataSource.GetAddress(id) != null;
             return result;
         }
 

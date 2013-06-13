@@ -46,8 +46,7 @@ namespace TransAppApi.Managment
         {
             foreach (var company in tasks)
             {
-                var mongoCompany = new MongoDbCompany(company);
-                m_companiesDataSource.SaveCompany(mongoCompany);
+                m_companiesDataSource.SaveCompany(company);
             }
         }
 
@@ -58,11 +57,7 @@ namespace TransAppApi.Managment
 
         public bool EntityExists(int id)
         {
-            var result = false;
-            if (m_companiesDataSource.GetCompany(id) != null)
-            {
-                result = true;
-            }
+            var  result = m_companiesDataSource.GetCompany(id) != null;
             return result;
         }
 

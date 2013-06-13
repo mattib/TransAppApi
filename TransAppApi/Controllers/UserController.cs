@@ -68,6 +68,12 @@ namespace TransAppApi.Controllers
             m_userManager.DeleteEntity(id);
         }
 
+        public bool AuthenticateUser(string userName, string password)
+        {
+            return true;
+            // m_userManager.DeleteEntity(id);
+        }
+
         // authneticate
 
         //change password

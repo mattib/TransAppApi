@@ -14,10 +14,10 @@ namespace TransAppApi.Entities
         {
             Id = task.Id;
             DeliveryNumber = task.DeliveryNumber;
-            UserId = task.UserId;
-            CompanyId = task.CompanyId;
-            SenderAddressId = task.SenderAddressId;
-            ReciverAddressId = task.ReciverAddressId;
+            User = new User(task.User);
+            Company = new Company(task.Company);
+            SenderAddress = new Address(task.SenderAddress);
+            ReciverAddress = new Address(task.ReciverAddress);
             TaskStatus = task.TaskStatus;
             Created = task.Created;
             PickedUpAt = task.PickedUpAt;
@@ -25,11 +25,8 @@ namespace TransAppApi.Entities
             PickUpTime = task.PickUpTime;
             DeliveryTime = task.DeliveryTime;
             LastModified = task.LastModified;
-            Accepted = task.Accepted;
-            PackageType = task.PackageType;
             Comment = task.Comment;
-            RejectionReason = task.RejectionReason;
-            ContactId = task.ContactId;
+            Contact = new Contact(task.Contact);
             RowStatus = task.RowStatus;
             TaskType = task.TaskType;
             DataExtention = task.DataExtention;
@@ -37,24 +34,21 @@ namespace TransAppApi.Entities
 
         public int Id { get; set; }
         public string DeliveryNumber { get; set; }
-        public int UserId { get; set; }
-        public int CompanyId { get; set; }
-        public int SenderAddressId { get; set; }
-        public int ReciverAddressId { get; set; }
+        public User User { get; set; }
+        public Company Company { get; set; }
+        public Address SenderAddress { get; set; }
+        public Address ReciverAddress { get; set; }
         public int TaskStatus { get; set; }
         public DateTime Created { get; set; }
-        public DateTime PickedUpAt { get; set; }
-        public DateTime DeliveredAt { get; set; }
-        public DateTime PickUpTime { get; set; }
-        public DateTime DeliveryTime { get; set; }
+        public DateTime? PickedUpAt { get; set; }
+        public DateTime? DeliveredAt { get; set; }
+        public DateTime? PickUpTime { get; set; }
+        public DateTime? DeliveryTime { get; set; }
         public DateTime LastModified { get; set; }
-        public bool Accepted { get; set; }
-        public bool PackageType { get; set; }
         public string Comment { get; set; }
-        public bool RejectionReason { get; set; }
-        public int ContactId { get; set; }
+        public Contact Contact { get; set; }
         public int RowStatus { get; set; }
-        public int TaskType { get; set; }
+        public int? TaskType { get; set; }
         public string DataExtention { get; set; }
     }
 }

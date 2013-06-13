@@ -189,11 +189,12 @@
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\Customer.cs" />
-    <Compile Include="Entities\MembershipUser.cs" />
+    <Compile Include="Entities\AuthenticationUser.cs" />
     <Compile Include="Entities\Task.cs" />
     <Compile Include="Managment\AddressManager.cs" />
     <Compile Include="Managment\CompanyManager.cs" />
     <Compile Include="Managment\ContactManager.cs" />
+    <Compile Include="Managment\AuthenticationManager.cs" />
     <Compile Include="Managment\CustomerManager.cs" />
     <Compile Include="Managment\IEntityManager.cs" />
     <Compile Include="Managment\IUserManager.cs" />

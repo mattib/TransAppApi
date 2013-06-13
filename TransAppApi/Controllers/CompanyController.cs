@@ -33,23 +33,12 @@ namespace TransAppApi.Controllers
             var result = m_comapanyManager.GetEntity(id);
             return result;
         }
-        //// GET api/event/?userName={userName}
-        //public User GetByUserName(string userName)
-        //{
-        //    var result = m_comapanyManager.GetUser(userName);
-        //    return result;
-        //}
 
         // POST api/event - ?
         public void Post(Company value) // [FromBody]string value
         {
             m_comapanyManager.SaveEntity(new [] {value});
         }
-
-        //// PUT api/event/5  -- ?
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
 
         // DELETE api/event/5
         public void Delete(int id)

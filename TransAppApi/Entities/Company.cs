@@ -15,25 +15,25 @@ namespace TransAppApi.Entities
             Id = company.Id;
             Name = company.Name;
             CompanyUserName = company.CompanyUserName;
-            ContactUserId = company.ContactUserId;
-            AddressId = company.AddressId;
+            Address = new Address(company.Address);
             Created = company.Created;
             LastModified = company.LastModified;
             RowStatus = company.RowStatus;
             AmountOfUsers = company.AmountOfUsers;
             AmountOfTasksPerUser = company.AmountOfTasksPerUser;
+            CompanyInfo = company.CompanyInfo;
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public string CompanyUserName { get; set; }
-        public int ContactUserId { get; set; }
-        public int AddressId { get; set; }
+        public Address Address { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastModified { get; set; }
         public int RowStatus { get; set; }
-        public int Active { get; set; }
-        public int AmountOfUsers { get; set; }
-        public int AmountOfTasksPerUser { get; set; }
+        public int? AmountOfUsers { get; set; }
+        public int? AmountOfTasksPerUser { get; set; }
+        public string CompanyInfo { get; set; }
+
     }
 }
