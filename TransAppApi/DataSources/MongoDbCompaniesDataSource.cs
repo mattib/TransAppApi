@@ -43,6 +43,10 @@ namespace TransAppApi.DataSources
             if (comapny.Id == 0)
             {
                 comapny.Id = NewId();
+
+                var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
+                var addrssId = mongoDbAddressesDataSource.SaveAddress(comapny.Address);
+                comapny.Address.Id = addrssId;
             }
 
             var mongoDbCompany = new MongoDbCompany(comapny);

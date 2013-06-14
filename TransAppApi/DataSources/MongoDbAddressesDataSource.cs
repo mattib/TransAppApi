@@ -38,7 +38,7 @@ namespace TransAppApi.DataSources
             return ToAddress(address);
         }
 
-        public void SaveAddress(Address address)
+        public int SaveAddress(Address address)
         {
             if (address.Id == 0)
             {
@@ -49,6 +49,7 @@ namespace TransAppApi.DataSources
 
             var addressesCollection = GetAddressesCollection();
             addressesCollection.Save(mongoDbAddress);
+            return address.Id;
         }
 
         public void DeleteAddress(int id)
