@@ -19,6 +19,7 @@ namespace TransAppApi.Entities
             CellNumber = contact.CellNumber;
             Email = contact.Email;
             Address = new Address(contact.Address);
+            Company = new Company(contact.Company);
             LastModified = contact.LastModified;
             RowStatus = contact.RowStatus;
         }
@@ -30,6 +31,7 @@ namespace TransAppApi.Entities
         public string CellNumber { get; set; }
         public string Email { get; set; }
         public Address Address { get; set; }
+        public Company Company { get; set; }
         public DateTime LastModified { get; set; }
         public int RowStatus { get; set; }
     }

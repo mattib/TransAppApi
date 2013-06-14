@@ -43,6 +43,15 @@ namespace TransAppApi.DataSources
             if (customer.Id == 0)
             {
                 customer.Id = NewId();
+                var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
+                var addrssId = mongoDbAddressesDataSource.SaveAddress(customer.Address);
+                customer.Address.Id = addrssId;
+                var mongoDbContactsDataSource = new MongoDbContactsDataSource();
+                var contactId = mongoDbContactsDataSource.SaveContact(customer.Contact);
+                customer.Contact.Id = addrssId;
+                customer.Contact.Address = new Address();
+                customer.Contact.Address.Id = addrssId;
+                
             }
 
             var mongoDbCustomer = new MongoDbCustomer(customer);

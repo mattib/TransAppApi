@@ -38,26 +38,21 @@ namespace TransAppApi.DataSources
             return ToContact(contact);
         }
 
-        //public Company GetUser(string userName)
-        //{
-        //    var comapniesCollection = GetContactsCollection();
-        //    var query = Query<MongoDbCompany>.EQ(e => e.UserName, userName);
-        //    var contact = comapniesCollection.FindOne(query);
-
-        //    return contact;
-        //}
-
-        public void SaveContact(Contact contact)
+        public int SaveContact(Contact contact)
         {
             if (contact.Id == 0)
             {
                 contact.Id = NewId();
+                var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
+                var addrssId = mongoDbAddressesDataSource.SaveAddress(contact.Address);
+                contact.Address.Id = addrssId;
             }
 
             var MongoDbUser = new MongoDbContact(contact);
 
             var contactsCollection = GetContactsCollection();
             contactsCollection.Save(MongoDbUser);
+            return contact.Id;
         }
 
         public void DeleteContact(int id)
