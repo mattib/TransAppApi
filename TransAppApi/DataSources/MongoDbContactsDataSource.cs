@@ -98,6 +98,9 @@ namespace TransAppApi.DataSources
             var address = GetAddress(mongoDbContact);
             contact.Address = new Address(address);
 
+            var company = GetCompany(mongoDbContact);
+            contact.Company = new Company(company);
+
             contact.LastModified = mongoDbContact.LastModified;
             contact.RowStatus = mongoDbContact.RowStatus;
 
@@ -110,6 +113,15 @@ namespace TransAppApi.DataSources
             var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
 
             result = mongoDbAddressesDataSource.GetAddress(mongoDbContact.AddressId);
+            return result;
+        }
+
+        private static Company GetCompany(MongoDbContact mongoDbContact)
+        {
+            var result = default(Company);
+            var mongoDbCompaniesDataSource = new MongoDbCompaniesDataSource();
+
+            result = mongoDbCompaniesDataSource.GetCompany(mongoDbContact.CompanyId);
             return result;
         }
     }

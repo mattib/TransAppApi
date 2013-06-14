@@ -110,6 +110,7 @@ namespace TransAppApi.DataSources
 
             var contact = GetContact(mongoDbTask);
             task.Contact = new Contact(contact);
+            task.Contact.Company = task.Company;
 
             task.RowStatus = mongoDbTask.RowStatus;
             task.TaskType = mongoDbTask.TaskType;

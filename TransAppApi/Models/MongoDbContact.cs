@@ -26,6 +26,7 @@ namespace TransAppApi.Models
             AddressId = contact.Address.Id;
             LastModified = contact.LastModified;
             RowStatus = contact.RowStatus;
+            CompanyId = contact.Company.Id;
         }
 
         public int Id { get; set; }
@@ -35,6 +36,7 @@ namespace TransAppApi.Models
         public string CellNumber { get; set; }
         public string Email { get; set; }
         public int AddressId { get; set; }
+        public int CompanyId { get; set; }
         public DateTime LastModified { get; set; }
         public int RowStatus { get; set; }
         public ObjectId MongoId
