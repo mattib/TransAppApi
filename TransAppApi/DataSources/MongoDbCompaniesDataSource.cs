@@ -47,9 +47,11 @@ namespace TransAppApi.DataSources
                 var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
                 var addrssId = mongoDbAddressesDataSource.SaveAddress(comapny.Address);
                 comapny.Address.Id = addrssId;
+                
             }
 
             var mongoDbCompany = new MongoDbCompany(comapny);
+            mongoDbCompany.LastModified = DateTime.UtcNow;
 
             var comapniesCollection = GetCompaniesCollection();
             comapniesCollection.Save(mongoDbCompany);
@@ -59,6 +61,7 @@ namespace TransAppApi.DataSources
         {
             var comapny = GetCompany(id);
             comapny.RowStatus = 1;
+            comapny.LastModified = DateTime.UtcNow;
             var comapniesCollection = GetCompaniesCollection();
             comapniesCollection.Save(comapny);
         }

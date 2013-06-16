@@ -33,10 +33,13 @@ namespace TransAppApi.Controllers
             var result = m_addressManager.GetEntity(id);
             return result;
         }
-        //// GET api/event/?userName={userName}
-        //public User GetByUserName(string userName)
+        //// GET api/user/?comapnyId={comapnyId}
+        //public IEnumerable<User> GetByCompanyId(int comapnyId)
         //{
-        //    var result = m_addressManager.GetUser(userName);
+        //    var usersSearchQuery = new UsersSearchQuery();
+        //    usersSearchQuery.CompanyId = comapnyId;
+
+        //    var result = m_userManager.GetEntities(usersSearchQuery);
         //    return result;
         //}
 

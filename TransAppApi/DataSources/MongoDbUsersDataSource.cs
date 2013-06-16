@@ -52,18 +52,20 @@ namespace TransAppApi.DataSources
             if (user.Id == 0)
             {
                 user.Id = NewId();
+                user.TimeCreated = DateTime.UtcNow;
             }
 
-            var MongoDbUser = new MongoDbUser(user);
-
+            var mongoDbUser = new MongoDbUser(user);
+            mongoDbUser.LastModified = DateTime.UtcNow;
             var UsersCollection = GetUsersCollection();
-            UsersCollection.Save(MongoDbUser);
+            UsersCollection.Save(mongoDbUser);
         }
 
         public void DeleteUser(int id)
         {
             var UserItem = GetUser(id);
             UserItem.RowStatus = 1;
+            UserItem.LastModified = DateTime.UtcNow;
             var UsersCollection = GetUsersCollection();
             UsersCollection.Save(UserItem);
         }
