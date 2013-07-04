@@ -54,6 +54,11 @@ namespace TransAppApi.DataSources
                 user.Id = NewId();
                 user.TimeCreated = DateTime.UtcNow;
             }
+            else
+            {
+               var savedUser = GetUser(user.Id);
+               user.Password = savedUser.Password;
+            }
 
             var mongoDbUser = new MongoDbUser(user);
             mongoDbUser.LastModified = DateTime.UtcNow;
@@ -123,6 +128,56 @@ namespace TransAppApi.DataSources
 
             result = mongoDbCompaniesDataSource.GetCompany(mongoDbUser.CompanyId);
             return result;
+        }
+
+        public bool ChangePassword(int userId, string oldPassword, string newPassword)
+        {
+            var result = false;
+            var savedUser = GetUser(userId);
+
+            if (savedUser.Password == oldPassword)
+            {
+                savedUser.Password = newPassword;
+                var mongoDbUser = new MongoDbUser(savedUser);
+                mongoDbUser.LastModified = DateTime.UtcNow;
+                var UsersCollection = GetUsersCollection();
+                UsersCollection.Save(mongoDbUser);
+                result = true;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid Password");
+            }
+            return result;
+        }
+
+        public bool AuthenticateUser(string userName, string password)
+        {
+            var result = false;
+            var savedUser = GetUser(userName);
+            if (savedUser != null && savedUser.Password == password)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public int CreateUser(string userName, string password, int companyId)
+        {
+            // if companyId exists
+            var user = new User();
+            user.Company = new Company();
+            user.Company.Id = companyId;
+            user.Id = 0;
+            user.UserName = userName;
+            user.Password = password;
+
+            SaveUser(user);
+
+            var newUser = GetUser(userName);
+
+            return newUser.Id;
         }
     }
 }

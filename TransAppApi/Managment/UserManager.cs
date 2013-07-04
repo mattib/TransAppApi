@@ -24,6 +24,8 @@ namespace TransAppApi.Managment
 
             var result = new User(mongoUser);
 
+            result.Password = null;
+
             return result;
         }
 
@@ -36,6 +38,7 @@ namespace TransAppApi.Managment
             foreach (var mongoUser in usersList)
             {
                 var user = new User(mongoUser);
+                user.Password = null;
                 result.Add(user);
             }
 
@@ -100,6 +103,24 @@ namespace TransAppApi.Managment
                 users = users.Where(user => (user.Company.Id == usersSearchQuery.CompanyId.Value));
             }
             return users;
+        }
+
+        public bool AuthenticateUser(string userName, string password)
+        {
+            var result = m_userDataSource.AuthenticateUser(userName, password);
+            return result;
+        }
+
+        public bool ChangePassword(int userId, string oldPassword, string newPassword)
+        {
+            var result = m_userDataSource.ChangePassword(userId, oldPassword, newPassword);
+            return result;
+        }
+
+        public int CreateUser(string userName, string password, int companyId)
+        {
+            var result = m_userDataSource.CreateUser(userName, password, companyId);
+            return result;
         }
 
     }

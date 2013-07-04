@@ -54,13 +54,12 @@ namespace TransAppApi.Controllers
         // POST api/user - ?
         public void Post(User value) // [FromBody]string value
         {
+            if (value == null)
+            {
+                throw new NullReferenceException("No user was recived");
+            }
             m_userManager.SaveEntity(new [] {value});
         }
-
-        //// PUT api/user/5  -- ?
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
 
         // DELETE api/user/5
         public void Delete(int id)
@@ -68,16 +67,27 @@ namespace TransAppApi.Controllers
             m_userManager.DeleteEntity(id);
         }
 
+
+        //To be changed in the future
+        [HttpGet]
         public bool AuthenticateUser(string userName, string password)
         {
-            return true;
-            // m_userManager.DeleteEntity(id);
+            var userManager = m_userManager as UserManager;
+            return userManager.AuthenticateUser(userName, password);
         }
 
-        // authneticate
+        [HttpGet]
+        public bool ChangePassword(int userId, string oldPassword, string newPassword)
+        {
+            var userManager = m_userManager as UserManager;
+            return userManager.ChangePassword(userId, oldPassword, newPassword);
+        }
 
-        //change password
-
-        //
+        [HttpGet]
+        public int CreateUser(string userName, string password, int companyId)
+        {
+            var userManager = m_userManager as UserManager;
+            return userManager.CreateUser(userName, password, companyId);
+        }
     }
 }
