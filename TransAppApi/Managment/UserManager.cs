@@ -50,6 +50,7 @@ namespace TransAppApi.Managment
             var mongoUser = m_userDataSource.GetUser(id);
 
             var result = new User(mongoUser);
+            result.Password = null;
 
             return result;
         }

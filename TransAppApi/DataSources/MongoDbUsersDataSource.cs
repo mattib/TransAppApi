@@ -59,6 +59,9 @@ namespace TransAppApi.DataSources
             {
                var savedUser = GetUser(user.Id);
                user.Password = savedUser.Password;
+               user.Company = savedUser.Company;
+               user.RowStatus = savedUser.RowStatus;
+               user.Active = savedUser.Active;
             }
 
             var mongoDbUser = new MongoDbUser(user);

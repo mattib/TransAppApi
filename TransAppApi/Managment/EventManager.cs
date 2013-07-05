@@ -53,6 +53,46 @@ namespace TransAppApi.Managment
             {
                 var mongoEvent = new MongoDbEvent(eventItem);
                 m_eventDataSource.SaveEvent(mongoEvent);
+
+                if(eventItem.TaskId.HasValue)
+                {
+                    var tasksDataSource = new MongoDbTasksDataSource();
+                    var task = tasksDataSource.GetTask(eventItem.TaskId.Value);
+                    var taskStatus = (TaskStatus)task.TaskStatus;
+
+                    var newStatus = (TaskStatus)eventItem.InputType;
+
+                    var changeStatus = false;
+                    if (taskStatus != TaskStatus.Finished && newStatus == TaskStatus.Canceled)
+                    {
+                        changeStatus = true; ;
+                    }
+                    else if (taskStatus == TaskStatus.Created && newStatus == TaskStatus.Assigned)
+                    {
+                        changeStatus = true; ;
+                    }
+                    else if ((taskStatus == TaskStatus.Assigned || taskStatus == TaskStatus.Reassigned)
+                        && (newStatus == TaskStatus.Started || newStatus == TaskStatus.Reassigned))
+                    {
+                        changeStatus = true; ;
+                    }
+                    else if ((taskStatus == TaskStatus.Started)
+                        && (newStatus == TaskStatus.Accepted || newStatus == TaskStatus.Rejected))
+                    {
+                        changeStatus = true; ;
+                    }
+                    else if ((taskStatus == TaskStatus.Accepted || taskStatus == TaskStatus.Rejected)
+                        && newStatus == TaskStatus.Finished)
+                    {
+                        changeStatus = true; ;
+                    }
+
+                    if (changeStatus)
+                    {
+                        task.TaskStatus = (int) newStatus;
+                        tasksDataSource.SaveTask(task);
+                    }
+                }
             }
         }
 

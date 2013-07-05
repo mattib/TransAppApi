@@ -50,12 +50,47 @@ namespace TransAppApi.Managment
                 {
                     task.LastModified = DateTime.UtcNow;
                     m_tasksDataSource.SaveTask(task);
+
+                    if ((TaskStatus)task.TaskStatus == TaskStatus.Created)
+                    {
+                        var eventManager = new EventManager();
+
+
+                        var events = new List<Event>();
+
+                        events.Add(CreateCreatedTaskEvent(task));
+                        events.Add(CreateAssignTaskEvent(task));
+
+                        eventManager.SaveEvents(events.ToArray());
+                    }
                 }
                 else
                 {
                     throw new ArgumentNullException("The Creation of Task failed.");
                 }
             }
+        }
+
+        private static Event CreateCreatedTaskEvent(Task task)
+        {
+            return CreateEvent(task, TaskStatus.Created);
+        }
+
+        private static Event CreateAssignTaskEvent(Task task)
+        {
+            return CreateEvent(task, TaskStatus.Assigned);
+        }
+
+        private static Event CreateEvent(Task task, TaskStatus taskStatus)
+        {
+            var eventItem = new Event();
+            eventItem.Id = 0;
+            eventItem.TaskId = task.Id;
+            eventItem.Time = DateTime.UtcNow;
+            eventItem.RowStatus = 0;
+            eventItem.InputType = (int)taskStatus;
+            eventItem.UserId = task.User.Id;
+            return eventItem;
         }
 
         private bool TaskIsValid(Task task)

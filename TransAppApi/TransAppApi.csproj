@@ -191,6 +191,7 @@
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\AuthenticationUser.cs" />
     <Compile Include="Entities\Task.cs" />
+    <Compile Include="Entities\TaskStatus.cs" />
     <Compile Include="Managment\AddressManager.cs" />
     <Compile Include="Managment\CompanyManager.cs" />
     <Compile Include="Managment\ContactManager.cs" />
