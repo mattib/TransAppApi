@@ -151,13 +151,13 @@ namespace TransAppApi.DataSources
             return result;
         }
 
-        public bool AuthenticateUser(string userName, string password)
+        public int AuthenticateUser(string userName, string password)
         {
-            var result = false;
+            var result = -1;
             var savedUser = GetUser(userName);
             if (savedUser != null && savedUser.Password == password)
             {
-                result = true;
+                result = savedUser.Id;
             }
 
             return result;

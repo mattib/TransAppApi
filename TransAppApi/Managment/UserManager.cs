@@ -105,7 +105,7 @@ namespace TransAppApi.Managment
             return users;
         }
 
-        public bool AuthenticateUser(string userName, string password)
+        public int AuthenticateUser(string userName, string password)
         {
             var result = m_userDataSource.AuthenticateUser(userName, password);
             return result;

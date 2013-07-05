@@ -70,7 +70,7 @@ namespace TransAppApi.Controllers
 
         //To be changed in the future
         [HttpGet]
-        public bool AuthenticateUser(string userName, string password)
+        public int AuthenticateUser(string userName, string password)
         {
             var userManager = m_userManager as UserManager;
             return userManager.AuthenticateUser(userName, password);
