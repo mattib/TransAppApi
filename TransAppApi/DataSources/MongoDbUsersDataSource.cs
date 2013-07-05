@@ -43,7 +43,8 @@ namespace TransAppApi.DataSources
             var UsersCollection = GetUsersCollection();
             var query = Query<MongoDbUser>.EQ(e => e.UserName, userName);
             var user = UsersCollection.FindOne(query);
-
+            if (user == null)
+                return null;
             return ToUser(user);
         }
 
@@ -154,6 +155,7 @@ namespace TransAppApi.DataSources
         public int AuthenticateUser(string userName, string password)
         {
             var result = -1;
+
             var savedUser = GetUser(userName);
             if (savedUser != null && savedUser.Password == password)
             {

@@ -73,6 +73,12 @@ namespace TransAppApi.Managment
             return result;
         }
 
+        public bool EntityExists(string userNAme)
+        {
+            var result = m_userDataSource.GetUser(userNAme) != null;
+            return result;
+        }
+
         private IEnumerable<User> QueryUsers(EntitiesSearchQuery entitiesSearchQuery)
         {
             var tasksList = new List<Task>();
@@ -107,7 +113,12 @@ namespace TransAppApi.Managment
 
         public int AuthenticateUser(string userName, string password)
         {
-            var result = m_userDataSource.AuthenticateUser(userName, password);
+            var userExists = EntityExists(userName);
+            var result = -1;
+            if (userExists)
+            {
+                result = m_userDataSource.AuthenticateUser(userName, password);
+            }
             return result;
         }
 
