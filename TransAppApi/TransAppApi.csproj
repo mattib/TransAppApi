@@ -190,6 +190,7 @@
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\AuthenticationUser.cs" />
+    <Compile Include="Entities\InputType.cs" />
     <Compile Include="Entities\Task.cs" />
     <Compile Include="Entities\TaskStatus.cs" />
     <Compile Include="Managment\AddressManager.cs" />

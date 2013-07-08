@@ -58,42 +58,81 @@ namespace TransAppApi.Managment
                 {
                     var tasksDataSource = new MongoDbTasksDataSource();
                     var task = tasksDataSource.GetTask(eventItem.TaskId.Value);
-                    var taskStatus = (TaskStatus)task.TaskStatus;
 
-                    var newStatus = (TaskStatus)eventItem.InputType;
+                    switch ((InputType)eventItem.InputType)
+                    {
+                        case InputType.TaskStatusChange: 
+                              task = ChangeTaskStatus(eventItem, task);
+                            break;
 
-                    var changeStatus = false;
-                    if (taskStatus != TaskStatus.Finished && newStatus == TaskStatus.Canceled)
-                    {
-                        changeStatus = true; ;
-                    }
-                    else if (taskStatus == TaskStatus.Created && newStatus == TaskStatus.Assigned)
-                    {
-                        changeStatus = true; ;
-                    }
-                    else if ((taskStatus == TaskStatus.Assigned || taskStatus == TaskStatus.Reassigned)
-                        && (newStatus == TaskStatus.Started || newStatus == TaskStatus.Reassigned))
-                    {
-                        changeStatus = true; ;
-                    }
-                    else if ((taskStatus == TaskStatus.Started)
-                        && (newStatus == TaskStatus.Accepted || newStatus == TaskStatus.Rejected))
-                    {
-                        changeStatus = true; ;
-                    }
-                    else if ((taskStatus == TaskStatus.Accepted || taskStatus == TaskStatus.Rejected)
-                        && newStatus == TaskStatus.Finished)
-                    {
-                        changeStatus = true; ;
+                        case InputType.ImageId:
+                            task.ImageId = eventItem.Text;
+                            break;
+
+                        case InputType.SignatureId:
+                            task.SignatureId = eventItem.Text;
+                            break;
+
+                        case InputType.UserComment:
+                            task.UserComment = eventItem.Text;
+                            break;
                     }
 
-                    if (changeStatus)
-                    {
-                        task.TaskStatus = (int) newStatus;
-                        tasksDataSource.SaveTask(task);
-                    }
+                    tasksDataSource.SaveTask(task);
                 }
             }
+        }
+
+        private Task ChangeTaskStatus(Event eventItem, Task task)
+        {
+            var oldStatus = (TaskStatus)task.TaskStatus;
+            var newStatus = (TaskStatus)eventItem.InputType;
+
+            if (newStatus == TaskStatus.Rejected)
+            {
+                task.Rejected = true;
+            }
+            if (newStatus == TaskStatus.Accepted)
+            {
+                task.Rejected = false;
+            }
+
+            newStatus = GetTaskStatus(oldStatus, newStatus);
+
+            task.TaskStatus = (int)newStatus;
+
+            return task;
+        }
+
+        private TaskStatus GetTaskStatus(TaskStatus oldStatus, TaskStatus newStatus)
+        {
+           
+            var result = oldStatus;
+            if (oldStatus != TaskStatus.Finished && newStatus == TaskStatus.Canceled)
+            {
+                result = newStatus;
+            }
+            else if (oldStatus == TaskStatus.Created && newStatus == TaskStatus.Assigned)
+            {
+                result = newStatus;
+            }
+            else if ((oldStatus == TaskStatus.Assigned || oldStatus == TaskStatus.Reassigned)
+                && (newStatus == TaskStatus.Started || newStatus == TaskStatus.Reassigned))
+            {
+                result = newStatus;
+            }
+            else if ((oldStatus == TaskStatus.Started)
+                && (newStatus == TaskStatus.Accepted || newStatus == TaskStatus.Rejected))
+            {
+                result = newStatus;
+            }
+            else if ((oldStatus == TaskStatus.Accepted || oldStatus == TaskStatus.Rejected)
+                && newStatus == TaskStatus.Finished)
+            {
+                result = newStatus;
+            }
+
+            return newStatus;
         }
 
         public void DeleteEvent(int id)

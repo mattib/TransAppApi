@@ -30,6 +30,10 @@ namespace TransAppApi.Entities
             RowStatus = task.RowStatus;
             TaskType = task.TaskType;
             DataExtention = task.DataExtention;
+            SignatureId = task.SignatureId;
+            ImageId = task.ImageId;
+            UserComment = task.UserComment;
+            Rejected = task.Rejected;
         }
 
         public int Id { get; set; }
@@ -50,5 +54,10 @@ namespace TransAppApi.Entities
         public int RowStatus { get; set; }
         public int? TaskType { get; set; }
         public string DataExtention { get; set; }
+        public string SignatureId { get; set; }
+        public string ImageId { get; set; }
+        public string UserComment { get; set; }
+        public bool? Rejected { get; set; }
+
     }
 }

@@ -118,6 +118,11 @@ namespace TransAppApi.DataSources
             task.RowStatus = mongoDbTask.RowStatus;
             task.TaskType = mongoDbTask.TaskType;
             task.DataExtention = mongoDbTask.DataExtention;
+            task.SignatureId = mongoDbTask.SignatureId;
+            task.ImageId = mongoDbTask.ImageId;
+            task.UserComment = mongoDbTask.UserComment;
+            task.Rejected = mongoDbTask.Rejected;
+            
 
             return task;
         }
