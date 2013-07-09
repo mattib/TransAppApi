@@ -86,7 +86,7 @@ namespace TransAppApi.Managment
         private Task ChangeTaskStatus(Event eventItem, Task task)
         {
             var oldStatus = (TaskStatus)task.TaskStatus;
-            var newStatus = (TaskStatus)eventItem.InputType;
+            var newStatus = (TaskStatus)eventItem.EventType;
 
             if (newStatus == TaskStatus.Rejected)
             {
