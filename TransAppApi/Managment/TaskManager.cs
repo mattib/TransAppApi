@@ -58,7 +58,7 @@ namespace TransAppApi.Managment
 
                         var events = new List<Event>();
 
-                        events.Add(CreateCreatedTaskEvent(task));
+                        events.Add(CreateTaskCreationEvent(task));
                         events.Add(CreateAssignTaskEvent(task));
 
                         eventManager.SaveEvents(events.ToArray());
@@ -71,7 +71,7 @@ namespace TransAppApi.Managment
             }
         }
 
-        private static Event CreateCreatedTaskEvent(Task task)
+        private static Event CreateTaskCreationEvent(Task task)
         {
             return CreateEvent(task, TaskStatus.Created);
         }
@@ -87,6 +87,7 @@ namespace TransAppApi.Managment
             eventItem.Id = 0;
             eventItem.TaskId = task.Id;
             eventItem.Time = DateTime.UtcNow;
+            eventItem.EventType = (int)InputType.TaskStatusChange;
             eventItem.RowStatus = 0;
             eventItem.InputType = (int)taskStatus;
             eventItem.UserId = task.User.Id;
