@@ -68,18 +68,10 @@ namespace TransAppApi.DataSources
 
         public int NewId()
         {
-            var companies = GetAll();
-            var result = 0;
-            foreach (var company in companies)
-            {
-                var mongoDbCompany = new MongoDbCompany (company);
-                if (mongoDbCompany.MongoId.Pid > result)
-                {
-                    result = mongoDbCompany.MongoId.Pid;
-                }
-            }
+            var comapniesCollection = GetCompaniesCollection();
+            var amountOfCompanies = (int)comapniesCollection.Count();
 
-            return result + 1;
+            return amountOfCompanies + 1;
         }
 
         private Company[] ToCompaniesArray(IEnumerable<MongoDbCompany> mongoDbCompanies)

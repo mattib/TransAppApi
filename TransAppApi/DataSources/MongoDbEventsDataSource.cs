@@ -61,18 +61,10 @@ namespace TransAppApi.DataSources
 
         public int NewId()
         {
-            var events = GetAll();
-            var result = 0;
-            foreach (var item in events)
-            {
-                var MongoDbEvent = (MongoDbEvent)item;
-                if (MongoDbEvent.MongoId.Pid > result)
-                {
-                    result = MongoDbEvent.MongoId.Pid;
-                }
-            }
+            var eventsCollection = GetEventsCollection();
+            var amountOfEvents = (int)eventsCollection.Count();
 
-            return result + 1;
+            return amountOfEvents + 1;
         }
     }
 }

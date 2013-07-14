@@ -81,18 +81,10 @@ namespace TransAppApi.DataSources
 
         public int NewId()
         {
-            var Users = GetAll();
-            var result = 0;
-            foreach (var user in Users)
-            {
-                var MongoDbUser = new MongoDbUser(user);
-                if (MongoDbUser.MongoId.Pid > result)
-                {
-                    result = MongoDbUser.MongoId.Pid;
-                }
-            }
+            var UsersCollection = GetUsersCollection();
+            var amountOfUsers = (int)UsersCollection.Count();
 
-            return result + 1;
+            return amountOfUsers + 1;
         }
 
         private User[] ToUsersArray(IEnumerable<MongoDbUser> mongoDbUsers)

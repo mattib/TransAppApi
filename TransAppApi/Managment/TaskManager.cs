@@ -98,6 +98,14 @@ namespace TransAppApi.Managment
         {
             var result = true;
 
+            var currentTask = GetEntity(task.Id);
+            if (task.RowStatus != 0
+                || task.TaskStatus == (int)TaskStatus.Finished
+                || task.TaskStatus == (int)TaskStatus.Canceled)
+            {
+                result = false;
+            }
+
             if (!UserIsValid(task.User.Id))
             {
                 result = false;

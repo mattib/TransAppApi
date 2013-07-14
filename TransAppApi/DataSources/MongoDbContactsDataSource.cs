@@ -66,18 +66,11 @@ namespace TransAppApi.DataSources
 
         public int NewId()
         {
-            var contacts = GetAll();
-            var result = 0;
-            foreach (var contact in contacts)
-            {
-                var mongoDbContact = new MongoDbContact(contact);
-                if (mongoDbContact.MongoId.Pid > result)
-                {
-                    result = mongoDbContact.MongoId.Pid;
-                }
-            }
+            var contactsCollection = GetContactsCollection();
+            var amountOfContacts = (int)contactsCollection.Count();
 
-            return result + 1;
+            return amountOfContacts + 1;
+
         }
 
         private Contact[] ToContactsArray(IEnumerable<MongoDbContact> mongoDbContacts)

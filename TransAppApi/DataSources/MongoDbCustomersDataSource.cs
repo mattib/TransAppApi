@@ -71,18 +71,11 @@ namespace TransAppApi.DataSources
 
         public int NewId()
         {
-            var customers = GetAll();
-            var result = 0;
-            foreach (var customer in customers)
-            {
-                var mongoDbCustomer = new MongoDbCustomer(customer);
-                if (mongoDbCustomer.MongoId.Pid > result)
-                {
-                    result = mongoDbCustomer.MongoId.Pid;
-                }
-            }
+            var customersCollection = GetCustomersCollection();
+            var amountOfCustomers = (int)customersCollection.Count();
 
-            return result + 1;
+            return amountOfCustomers + 1;
+
         }
 
         private Customer[] ToCustomersArray(IEnumerable<MongoDbCustomer> mongoDbCustomers)

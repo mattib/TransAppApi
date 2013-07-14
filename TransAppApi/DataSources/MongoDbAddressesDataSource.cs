@@ -64,18 +64,10 @@ namespace TransAppApi.DataSources
 
         public int NewId()
         {
-            var addresses = GetAll();
-            var result = 0;
-            foreach (var adress in addresses)
-            {
-                var mongoDbAddress = new MongoDbAddress(adress);
-                if (mongoDbAddress.MongoId.Pid > result)
-                {
-                    result = mongoDbAddress.MongoId.Pid;
-                }
-            }
+            var addressesCollection = GetAddressesCollection();
+            var amountOfAddresses = (int)addressesCollection.Count();
 
-            return result + 1;
+            return amountOfAddresses + 1;
         }
 
         private Address[] ToAddressesArray(IEnumerable<MongoDbAddress> mongoDbAddresses)

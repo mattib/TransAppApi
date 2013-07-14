@@ -48,7 +48,7 @@ namespace TransAppApi.DataSources
 
             var mongoDbTask = new MongoDbTask(task);
             mongoDbTask.LastModified = DateTime.UtcNow;
-
+            
             var tasksCollection = GetTasksCollection();
             tasksCollection.Save(mongoDbTask);
         }
@@ -64,18 +64,10 @@ namespace TransAppApi.DataSources
 
         public int NewId()
         {
-            var tasks = GetAll();
-            var result = 0;
-            foreach (var task in tasks)
-            {
-                var mongoDbTask = new MongoDbTask(task);
-                if (mongoDbTask.MongoId.Pid > result)
-                {
-                    result = mongoDbTask.MongoId.Pid;
-                }
-            }
+            var tasksCollection = GetTasksCollection();
+            var amountOfTasks = (int)tasksCollection.Count();
 
-            return result + 1;
+            return amountOfTasks + 1;
         }
 
         private Task[] ToTasksArray(IEnumerable<MongoDbTask> mongoDbTasks)
