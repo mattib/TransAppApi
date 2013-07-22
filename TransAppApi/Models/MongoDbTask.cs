@@ -17,7 +17,7 @@ namespace TransAppApi.Models
 
         public MongoDbTask(Task task)
         {
-            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(task.Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.Now, 0, short.Parse(task.Id.ToString()), 0);
             Id = task.Id;
             DeliveryNumber = task.DeliveryNumber;
             UserId = task.User.Id;

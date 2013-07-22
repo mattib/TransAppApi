@@ -51,7 +51,7 @@ namespace TransAppApi.DataSources
             }
 
             var mongoDbCompany = new MongoDbCompany(comapny);
-            mongoDbCompany.LastModified = DateTime.UtcNow;
+            mongoDbCompany.LastModified = DateTime.Now;
 
             var comapniesCollection = GetCompaniesCollection();
             comapniesCollection.Save(mongoDbCompany);
@@ -61,7 +61,7 @@ namespace TransAppApi.DataSources
         {
             var comapny = GetCompany(id);
             comapny.RowStatus = 1;
-            comapny.LastModified = DateTime.UtcNow;
+            comapny.LastModified = DateTime.Now;
             var comapniesCollection = GetCompaniesCollection();
             comapniesCollection.Save(comapny);
         }

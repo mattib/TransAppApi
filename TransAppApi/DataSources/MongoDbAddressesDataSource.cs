@@ -45,8 +45,8 @@ namespace TransAppApi.DataSources
                 address.Id = NewId();
             }
 
-            var mongoDbAddress = new MongoDbAddress(address) {LastModified = DateTime.UtcNow};
-            mongoDbAddress.LastModified = DateTime.UtcNow;
+            var mongoDbAddress = new MongoDbAddress(address) {LastModified = DateTime.Now};
+            mongoDbAddress.LastModified = DateTime.Now;
 
             var addressesCollection = GetAddressesCollection();
             addressesCollection.Save(mongoDbAddress);
@@ -57,7 +57,7 @@ namespace TransAppApi.DataSources
         {
             var address = GetAddress(id);
             address.RowStatus = 1;
-            address.LastModified = DateTime.UtcNow;
+            address.LastModified = DateTime.Now;
             var addressesCollection = GetAddressesCollection();
             addressesCollection.Save(address);
         }

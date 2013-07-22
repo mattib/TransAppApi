@@ -55,7 +55,7 @@ namespace TransAppApi.DataSources
             }
 
             var mongoDbCustomer = new MongoDbCustomer(customer);
-            mongoDbCustomer.LastModified = DateTime.UtcNow;
+            mongoDbCustomer.LastModified = DateTime.Now;
             var customersCollection = GetCustomersCollection();
             customersCollection.Save(mongoDbCustomer);
         }
@@ -64,7 +64,7 @@ namespace TransAppApi.DataSources
         {
             var customer = GetCustomer(id);
             customer.RowStatus = 1;
-            customer.LastModified = DateTime.UtcNow;
+            customer.LastModified = DateTime.Now;
             var customersCollection = GetCustomersCollection();
             customersCollection.Save(customer);
         }

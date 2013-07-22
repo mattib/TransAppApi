@@ -48,7 +48,7 @@ namespace TransAppApi.Managment
             {
                 if (TaskIsValid(task))
                 {
-                    task.LastModified = DateTime.UtcNow;
+                    task.LastModified = DateTime.Now;
                     m_tasksDataSource.SaveTask(task);
 
                     if ((TaskStatus)task.TaskStatus == TaskStatus.Created)
@@ -86,7 +86,7 @@ namespace TransAppApi.Managment
             var eventItem = new Event();
             eventItem.Id = 0;
             eventItem.TaskId = task.Id;
-            eventItem.Time = DateTime.UtcNow;
+            eventItem.Time = DateTime.Now;
             eventItem.EventType = (int)InputType.TaskStatusChange;
             eventItem.RowStatus = 0;
             eventItem.InputType = (int)taskStatus;

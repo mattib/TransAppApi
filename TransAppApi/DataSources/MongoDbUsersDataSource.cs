@@ -53,7 +53,7 @@ namespace TransAppApi.DataSources
             if (user.Id == 0)
             {
                 user.Id = NewId();
-                user.TimeCreated = DateTime.UtcNow;
+                user.TimeCreated = DateTime.Now;
             }
             else
             {
@@ -65,7 +65,7 @@ namespace TransAppApi.DataSources
             }
 
             var mongoDbUser = new MongoDbUser(user);
-            mongoDbUser.LastModified = DateTime.UtcNow;
+            mongoDbUser.LastModified = DateTime.Now;
             var UsersCollection = GetUsersCollection();
             UsersCollection.Save(mongoDbUser);
         }
@@ -74,7 +74,7 @@ namespace TransAppApi.DataSources
         {
             var UserItem = GetUser(id);
             UserItem.RowStatus = 1;
-            UserItem.LastModified = DateTime.UtcNow;
+            UserItem.LastModified = DateTime.Now;
             var UsersCollection = GetUsersCollection();
             UsersCollection.Save(UserItem);
         }
@@ -135,7 +135,7 @@ namespace TransAppApi.DataSources
             {
                 savedUser.Password = newPassword;
                 var mongoDbUser = new MongoDbUser(savedUser);
-                mongoDbUser.LastModified = DateTime.UtcNow;
+                mongoDbUser.LastModified = DateTime.Now;
                 var UsersCollection = GetUsersCollection();
                 UsersCollection.Save(mongoDbUser);
                 result = true;

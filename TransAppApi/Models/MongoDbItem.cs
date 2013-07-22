@@ -10,7 +10,7 @@ namespace TransAppApi.Models
     {
         public MongoDbItem()
         {
-            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.Now, 0, short.Parse(Id.ToString()), 0);
         }
 
         private int m_id;

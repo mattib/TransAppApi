@@ -43,11 +43,11 @@ namespace TransAppApi.DataSources
             if (task.Id == 0)
             {
                 task.Id = NewId();
-                task.Created = DateTime.UtcNow;
+                task.Created = DateTime.Now;
             }
 
             var mongoDbTask = new MongoDbTask(task);
-            mongoDbTask.LastModified = DateTime.UtcNow;
+            mongoDbTask.LastModified = DateTime.Now;
             
             var tasksCollection = GetTasksCollection();
             tasksCollection.Save(mongoDbTask);
@@ -57,7 +57,7 @@ namespace TransAppApi.DataSources
         {
             var task = GetTask(id);
             task.RowStatus = 1;
-            task.LastModified = DateTime.UtcNow;
+            task.LastModified = DateTime.Now;
             var tasksCollection = GetTasksCollection();
             tasksCollection.Save(task);
         }

@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="TransAppApi.BundleConfig" Collapsed="true">
+    <Position X="27.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\BundleConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.FilterConfig" Collapsed="true">
+    <Position X="24.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.RouteConfig" Collapsed="true">
+    <Position X="22.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.WebApiConfig" Collapsed="true">
+    <Position X="26" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\WebApiConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.WebApiApplication" Collapsed="true">
+    <Position X="24.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.ApiDescriptionExtensions" Collapsed="true">
+    <Position X="22.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Areas\HelpPage\ApiDescriptionExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.HelpPageConfig" Collapsed="true">
+    <Position X="19" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\HelpPage\App_Start\HelpPageConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.HelpPageAreaRegistration" Collapsed="true">
+    <Position X="17.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\HelpPage\HelpPageAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.HelpPageConfigurationExtensions" Collapsed="true">
+    <Position X="20.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAABAICACAAAAAAECAAAAADAAAAAEMAAAAAAEA=</HashCode>
+      <FileName>Areas\HelpPage\HelpPageConfigurationExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.HelpPageSampleGenerator" Collapsed="true">
+    <Position X="22.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAARQAQAAEAJgAAAQAAgAAAAgBAAAAABAAAAI=</HashCode>
+      <FileName>Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.HelpPageSampleKey" Collapsed="true">
+    <Position X="24.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAABAAAgAgAAAAAAAAAAAAICQAAAEAAAAAAA=</HashCode>
+      <FileName>Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.ImageSample" Collapsed="true">
+    <Position X="27.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAIAAAAAAAA=</HashCode>
+      <FileName>Areas\HelpPage\SampleGeneration\ImageSample.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.InvalidSample" Collapsed="true">
+    <Position X="17.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\HelpPage\SampleGeneration\InvalidSample.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.ObjectGenerator" Collapsed="true">
+    <Position X="20.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABDAoAAAAAACAEAICAAAYAAACAAAAAAgCAgAAAAIA=</HashCode>
+      <FileName>Areas\HelpPage\SampleGeneration\ObjectGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.TextSample" Collapsed="true">
+    <Position X="17.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAACAAAAAA=</HashCode>
+      <FileName>Areas\HelpPage\SampleGeneration\TextSample.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.XmlDocumentationProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAIAAAAQAAABIAAAAAAAAAAAAAAAAAAAAAAAEg=</HashCode>
+      <FileName>Areas\HelpPage\XmlDocumentationProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.Controllers.HelpController" Collapsed="true">
+    <Position X="26" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEAAAAgAAA=</HashCode>
+      <FileName>Areas\HelpPage\Controllers\HelpController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Areas.HelpPage.Models.HelpPageApiModel" Collapsed="true">
+    <Position X="27.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAGBAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\HelpPage\Models\HelpPageApiModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Controllers.AddressController" Collapsed="true">
+    <Position X="19" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAACAEAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Controllers\AddressController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Controllers.CompanyController" Collapsed="true">
+    <Position X="19" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAACAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\CompanyController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Controllers.ContactController" Collapsed="true">
+    <Position X="24.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAgCAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\ContactController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Controllers.CustomerController" Collapsed="true">
+    <Position X="17.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAACAEAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Controllers\CustomerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Controllers.EventController" Collapsed="true">
+    <Position X="20.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAECAUAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Controllers\EventController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Controllers.HomeController" Collapsed="true">
+    <Position X="26" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Controllers.TaskController" Collapsed="true">
+    <Position X="26" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAEAABAAAAAAAAACAEAAAAACAAAAAAAAIA=</HashCode>
+      <FileName>Controllers\TaskController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Controllers.UserController" Collapsed="true">
+    <Position X="10.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAASAAAAQAAgABAAAIAAAAACAEAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.DataSources.MongoDbAddressesDataSource" Collapsed="true">
+    <Position X="12.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAABAAAAAAABAAEAAEAAAgCAgAAgAAAAAA=</HashCode>
+      <FileName>DataSources\MongoDbAddressesDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TransAppApi.DataSources.MongoDbCompaniesDataSource" Collapsed="true">
+    <Position X="14.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAARBAAAAAQAAAAAAAAACECAgAAAAAAQAA=</HashCode>
+      <FileName>DataSources\MongoDbCompaniesDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TransAppApi.DataSources.MongoDbContactsDataSource" Collapsed="true">
+    <Position X="1.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAACAAAARABAACAAAAAAAAAAAAACggQAAAAAAIA=</HashCode>
+      <FileName>DataSources\MongoDbContactsDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TransAppApi.DataSources.MongoDbCustomersDataSource" Collapsed="true">
+    <Position X="3.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAgAAAAARAAIBAAAAAAAAAAAAAACkgAAAAABAAE=</HashCode>
+      <FileName>DataSources\MongoDbCustomersDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TransAppApi.DataSources.MongoDbDataSource" Collapsed="true">
+    <Position X="8" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataSources\MongoDbDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.DataSources.MongoDbEventsDataSource" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAIBAAAAAAAgAAAAAAAAAAAAgAACAAACAA=</HashCode>
+      <FileName>DataSources\MongoDbEventsDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TransAppApi.DataSources.MongoDbManager" Collapsed="true">
+    <Position X="27.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAABAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>DataSources\MongoDbManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.DataSources.MongoDbTasksDataSource" Collapsed="true">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAQAAAAAEARAAAAAAAAAAAABAAAAACkgAIAEAAAAA=</HashCode>
+      <FileName>DataSources\MongoDbTasksDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TransAppApi.DataSources.MongoDbUsersDataSource" Collapsed="true">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAgAUgAxAAEAAAAAABAAAAAAAAAEgAABAAAAAA=</HashCode>
+      <FileName>DataSources\MongoDbUsersDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TransAppApi.Entities.Address" Collapsed="true">
+    <Position X="12.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAQAAAAAAAACIIAAIAAACAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Entities.AuthenticationUser" Collapsed="true">
+    <Position X="26" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAAAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Entities\AuthenticationUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Entities.Company" Collapsed="true">
+    <Position X="17.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAAAAAAAAAAAAAAQCAAAAgAUCAAAAAAAEAAA=</HashCode>
+      <FileName>Entities\Company.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Entities.Contact" Collapsed="true">
+    <Position X="22.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAEAAACAAAACAAAAAAAACAgAAAAACAAAABAAAAAg=</HashCode>
+      <FileName>Entities\Contact.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Entities.Customer" Collapsed="true">
+    <Position X="27.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAAAAAAAACAAAAAQCAAAAAAACAAAABAAAAAA=</HashCode>
+      <FileName>Entities\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Entities.Event" Collapsed="true">
+    <Position X="0.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAAAAAAAAAAgAAAgEAAgAAAAAAAAACAAAAQA=</HashCode>
+      <FileName>Entities\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Entities.Task" Collapsed="true">
+    <Position X="24.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAoDAAYGAgQAAAAACAAAIAACAAAAAAUQAAAABAAACAA=</HashCode>
+      <FileName>Entities\Task.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Entities.User" Collapsed="true">
+    <Position X="19" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAEAAACAAAAAAUAAAQAACAAAEAAAiAQAABAAAAAg=</HashCode>
+      <FileName>Entities\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Managment.AddressManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAIAAAUAAAAAFAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Managment\AddressManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransAppApi.Managment.AuthenticationManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAQAAAAAFAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Managment\AuthenticationManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransAppApi.Managment.CompanyManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAIAAAQAAAAAFAAAAAAAIAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Managment\CompanyManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransAppApi.Managment.ContactManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAIAAAYAAAAAFAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Managment\ContactManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransAppApi.Managment.CustomerManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAIAAAQAAAAAFAAAAAAAAAAAAQAgAAAAAAAA=</HashCode>
+      <FileName>Managment\CustomerManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransAppApi.Managment.EventManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAAAAAAAIAIAAAAQAAAAAAAAYAAAAAAEAAgACAgCAA=</HashCode>
+      <FileName>Managment\EventManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransAppApi.Managment.TaskManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAlARACIAAAQAAQQANAAgAAAAAAAAAQIAAQCAAAAA=</HashCode>
+      <FileName>Managment\TaskManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransAppApi.Managment.UserManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAQAAQAAgQAAAAIFAAgAAAAAAAAAUAAAACAAAEA=</HashCode>
+      <FileName>Managment\UserManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransAppApi.Models.MongoDbAddress" Collapsed="true">
+    <Position X="19" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACEQAAAAAAAACIIAAIAAACAAIAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\MongoDbAddress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Models.MongoDbCompany" Collapsed="true">
+    <Position X="20.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAACEAAAAAAAAAAAAAAAAAQCAAAAgAUAAAAAAgAEAAA=</HashCode>
+      <FileName>Models\MongoDbCompany.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Models.MongoDbContact" Collapsed="true">
+    <Position X="22.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAACEEAAACIAAACAAAAAAAACAgAAAAAAAAAAAgAAAAg=</HashCode>
+      <FileName>Models\MongoDbContact.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Models.MongoDbCustomer" Collapsed="true">
+    <Position X="24.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAACEAAAAAIAAAAAAAAAAAQCAAAAAAEAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\MongoDbCustomer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Models.MongoDbEvent" Collapsed="true">
+    <Position X="0.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\MongoDbEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Models.MongoDbItem" Collapsed="true">
+    <Position X="26" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\MongoDbItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Models.MongoDbTask" Collapsed="true">
+    <Position X="17.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAoKEAYkAgYAAAAAAAAAIAgCAAAAAAUQAAAABgAACAA=</HashCode>
+      <FileName>Models\MongoDbTask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.Models.MongoDbUser" Collapsed="true">
+    <Position X="19" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACEEAAACIAAAAAUAAAQAACAAAEAAAiAQAAAgAAAAg=</HashCode>
+      <FileName>Models\MongoDbUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.SearchQueries.EntitiesSearchQuery" Collapsed="true">
+    <Position X="3.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAACAAAAAIAAAAAAEAAAAAA=</HashCode>
+      <FileName>SearchQueries\EntitiesSearchQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.SearchQueries.EventSearchQuery" Collapsed="true">
+    <Position X="1" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SearchQueries\EventSearchQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.SearchQueries.TasksSearchQuery" Collapsed="true">
+    <Position X="3.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>SearchQueries\TasksSearchQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransAppApi.SearchQueries.UsersSearchQuery" Collapsed="true">
+    <Position X="5.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SearchQueries\UsersSearchQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TransAppApi.DataSources.IAddressesDataSource" Collapsed="true">
+    <Position X="17.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataSources\IAddressesDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TransAppApi.DataSources.ICompaniesDataSource" Collapsed="true">
+    <Position X="19" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataSources\ICompaniesDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TransAppApi.DataSources.IContactsDataSource" Collapsed="true">
+    <Position X="20.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataSources\IContactsDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TransAppApi.DataSources.ICustomersDataSource" Collapsed="true">
+    <Position X="22.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataSources\ICustomersDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TransAppApi.DataSources.IEventsDataSource" Collapsed="true">
+    <Position X="26" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAACAA=</HashCode>
+      <FileName>DataSources\IEventsDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TransAppApi.DataSources.ITasksDataSource" Collapsed="true">
+    <Position X="27.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataSources\ITasksDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TransAppApi.DataSources.IUsersDataSource" Collapsed="true">
+    <Position X="17.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataSources\IUsersDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TransAppApi.Managment.IEntityManager&lt;TEntity&gt;" Collapsed="true">
+    <Position X="3.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAQAAAAAFAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Managment\IEntityManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TransAppApi.Managment.IEventManager" Collapsed="true">
+    <Position X="24.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAQAAAAAAAAAgAAAACAA=</HashCode>
+      <FileName>Managment\IEventManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TransAppApi.Managment.IUserManager" Collapsed="true">
+    <Position X="3.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Managment\IUserManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TransAppApi.Areas.HelpPage.SampleDirection" Collapsed="true">
+    <Position X="19" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\HelpPage\SampleGeneration\SampleDirection.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TransAppApi.Entities.InputType" Collapsed="true">
+    <Position X="17.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAEAAAAAAAAAAAAEIAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\InputType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TransAppApi.Entities.TaskStatus" Collapsed="true">
+    <Position X="20.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQQAAAAQAAAAAgAQAAAAAAAIAAAQAAAAAAAAAAgA=</HashCode>
+      <FileName>Entities\TaskStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
