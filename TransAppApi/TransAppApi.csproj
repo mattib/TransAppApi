@@ -200,6 +200,7 @@
     <Compile Include="Managment\CustomerManager.cs" />
     <Compile Include="Managment\IEntityManager.cs" />
     <Compile Include="Managment\IUserManager.cs" />
+    <Compile Include="Managment\SmtpHelper.cs" />
     <Compile Include="Managment\TaskManager.cs" />
     <Compile Include="Managment\UserManager.cs" />
     <Compile Include="Managment\EventManager.cs" />

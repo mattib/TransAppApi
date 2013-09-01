@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using TransAppApi.Entities;
 using TransAppApi.Models;
+using TransAppApi.SearchQueries;
 
 namespace TransAppApi.DataSources
 {
@@ -27,6 +28,21 @@ namespace TransAppApi.DataSources
             var tasks = tasksCollection.Find(query);
 
             return ToTasksArray(tasks);
+        }
+
+        private bool QueryTask(MongoDbTask mongoDbTask, TasksSearchQuery taskSearchQuery)
+        {
+            var result = false;
+            if (mongoDbTask.LastModified >= taskSearchQuery.LastModified)
+            {
+                result = true;
+            }
+            if (result && mongoDbTask.RowStatus == 1)
+            {
+                result = false;
+            }
+
+            return result;
         }
 
         public Task GetTask(int id)

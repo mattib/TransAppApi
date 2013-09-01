@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Text;
 using System.Web;
 using TransAppApi.DataSources;
 using TransAppApi.Entities;
@@ -97,14 +99,14 @@ namespace TransAppApi.Managment
                 task.Rejected = false;
             }
 
-            newStatus = GetTaskStatus(oldStatus, newStatus);
+            newStatus = GetTaskStatus(oldStatus, newStatus, task);
 
             task.TaskStatus = (int)newStatus;
 
             return task;
         }
 
-        private TaskStatus GetTaskStatus(TaskStatus oldStatus, TaskStatus newStatus)
+        private TaskStatus GetTaskStatus(TaskStatus oldStatus, TaskStatus newStatus, Task task)
         {
            
             var result = oldStatus;
@@ -130,9 +132,45 @@ namespace TransAppApi.Managment
                 && newStatus == TaskStatus.Finished)
             {
                 result = newStatus;
+
+                SendCompletedTaskEmail(task);
             }
 
             return newStatus;
+        }
+
+        private void SendCompletedTaskEmail(Task task)
+        {
+            var subject = string.Format("{Package Number: {0} is Completed}", task.DeliveryNumber);
+
+
+            var bodyText = new StringBuilder();
+            bodyText.AppendLine(string.Format("The Package Number: {0}, has been completed.", task.DeliveryNumber));
+            bodyText.AppendLine(string.Format("The Package was picked Up at: {0}.", task.PickedUpAt.ToString()));
+            bodyText.AppendLine(string.Format("The Package was delivered at: {0}.", task.DeliveredAt.ToString()));
+            if (task.Rejected.HasValue && task.Rejected.Value)
+            {
+                bodyText.AppendLine("The Package was rejected.");
+            }
+            else
+            {
+                bodyText.AppendLine("The Package was has been accepted.");
+            }
+            if (string.IsNullOrEmpty(task.UserComment))
+            {
+                bodyText.AppendLine(string.Format("The reciver added this comment: {0}.", task.UserComment));
+            }
+
+            SendEmail(subject, bodyText.ToString());
+        }
+
+        private void SendEmail(string subject, string body)
+        {
+            var emailHelper = new SmtpHelper();
+
+            var reciverEmail = ConfigurationManager.AppSettings.Get("ReciverEmail");
+            var reciverName = ConfigurationManager.AppSettings.Get("ReciverName");
+            emailHelper.SendEmail(reciverEmail, reciverName, subject, body);
         }
 
         public void DeleteEvent(int id)
