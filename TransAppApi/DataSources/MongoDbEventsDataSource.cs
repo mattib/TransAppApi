@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Driver.Builders;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,16 @@ namespace TransAppApi.DataSources
         private MongoCollection<MongoDbEvent> GetEventsCollection()
         {
             var collections = DbManager.GetCollection<MongoDbEvent>(m_eventsDataBaseName);
-
+            
             return collections;
         }
 
         public Event[] GetAll()
         {
             var eventsCollection = GetEventsCollection();
+            var rr = eventsCollection.AsQueryable<MongoDbEvent>();
+            rr = rr.Where(tt => tt.Id == 1);
+            var ff = rr.ToList();
             var query = Query<MongoDbEvent>.Where(e => e.RowStatus != 1);
             var events = eventsCollection.Find(query);
 
