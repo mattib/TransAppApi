@@ -35,7 +35,8 @@ namespace TransAppApi.Controllers
         }
 
         // GET api/Task?userId={userId}&lastModified={lastModified}
-        public IEnumerable<Task> GetByUserId(int userId, DateTime? lastModified)
+        // mabey have to  make this metoh without query straight to filtering.
+        public IEnumerable<Task> GetByUserId([FromUri] int userId, DateTime? lastModified)
         {
             var tasksSearchQuery = new TasksSearchQuery();
             tasksSearchQuery.UserId = userId;
@@ -46,7 +47,9 @@ namespace TransAppApi.Controllers
         }
 
         // GET api/Task?companyId={companyId}&lastModified={lastModified}
-        public IEnumerable<Task> GetByCompanyId(int companyId, DateTime? lastModified)
+
+        //remove and make this get a query in body instead
+        public IEnumerable<Task> GetByCompanyId([FromUri] int companyId, DateTime? lastModified)
         {
             var tasksSearchQuery = new TasksSearchQuery();
             tasksSearchQuery.CompanyId = companyId;
@@ -66,7 +69,7 @@ namespace TransAppApi.Controllers
         }
 
         // POST api/Task
-        public void Post(Task value) // [FromBody]string value
+        public void Post(Task value)
         {
             m_taskManager.SaveEntity(new [] {value});
         }
@@ -76,11 +79,5 @@ namespace TransAppApi.Controllers
         {
             m_taskManager.DeleteEntity(id);
         }
-
-        // authneticate
-
-        //change password
-
-        //
     }
 }

@@ -20,9 +20,9 @@ namespace TransAppApi.Managment
 
         public User GetUser(string userName)
         {
-            var mongoUser = m_userDataSource.GetUser(userName);
+            var result = m_userDataSource.GetUser(userName);
 
-            var result = new User(mongoUser);
+            //var result = new User(mongoUser);
 
             result.Password = null;
 
@@ -35,9 +35,9 @@ namespace TransAppApi.Managment
 
             var usersList = QueryUsers(searchQuery);
 
-            foreach (var mongoUser in usersList)
+            foreach (var user in usersList)
             {
-                var user = new User(mongoUser);
+                //var user = new User(mongoUser);
                 user.Password = null;
                 result.Add(user);
             }
@@ -47,9 +47,9 @@ namespace TransAppApi.Managment
 
         public User GetEntity(int id)
         {
-            var mongoUser = m_userDataSource.GetUser(id);
+            var result = m_userDataSource.GetUser(id);
 
-            var result = new User(mongoUser);
+            //var result = new User(mongoUser);
             result.Password = null;
 
             return result;
@@ -70,13 +70,13 @@ namespace TransAppApi.Managment
 
         public bool EntityExists(int id)
         {
-            var result = m_userDataSource.GetUser(id) != null;
+            var result = m_userDataSource.UserExists(id);
             return result;
         }
 
-        public bool EntityExists(string userNAme)
+        public bool EntityExists(string userName)
         {
-            var result = m_userDataSource.GetUser(userNAme) != null;
+            var result = m_userDataSource.UserExists(userName);
             return result;
         }
 

@@ -17,7 +17,7 @@ namespace TransAppApi.Models
 
         public MongoDbContact(Contact contact)
         {
-            MongoId = new ObjectId(DateTime.Now, 0, short.Parse(contact.Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(contact.Id.ToString()), 0);
             FirstName = contact.FirstName;
             LastName = contact.LastName;
             OfficeNumber = contact.OfficeNumber;

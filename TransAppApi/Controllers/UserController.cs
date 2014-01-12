@@ -42,7 +42,7 @@ namespace TransAppApi.Controllers
         }
 
         // GET api/user/?comapnyId={comapnyId}
-        public IEnumerable<User> GetByCompanyId(int comapnyId)
+        public IEnumerable<TransAppApi.Entities.User> GetByCompanyId(int comapnyId)
         {
             var usersSearchQuery = new UsersSearchQuery();
             usersSearchQuery.CompanyId = comapnyId;
@@ -52,7 +52,7 @@ namespace TransAppApi.Controllers
         }
 
         // POST api/user - ?
-        public void Post(User value) // [FromBody]string value
+        public void Post(TransAppApi.Entities.User value)
         {
             if (value == null)
             {

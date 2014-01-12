@@ -68,7 +68,7 @@ namespace TransAppApi.Managment
                             break;
 
                         case InputType.ImageId:
-                            task.ImageId = eventItem.Text;
+                            task.ImageId = new[] { eventItem.Text };
                             break;
 
                         case InputType.SignatureId:
@@ -76,7 +76,7 @@ namespace TransAppApi.Managment
                             break;
 
                         case InputType.UserComment:
-                            task.UserComment = eventItem.Text;
+                            task.ReciverComment = eventItem.Text;
                             break;
                     }
 
@@ -156,9 +156,9 @@ namespace TransAppApi.Managment
             {
                 bodyText.AppendLine("The Package was has been accepted.");
             }
-            if (string.IsNullOrEmpty(task.UserComment))
+            if (string.IsNullOrEmpty(task.ReciverComment))
             {
-                bodyText.AppendLine(string.Format("The reciver added this comment: {0}.", task.UserComment));
+                bodyText.AppendLine(string.Format("The reciver added this comment: {0}.", task.ReciverComment));
             }
 
             SendEmail(subject, bodyText.ToString());

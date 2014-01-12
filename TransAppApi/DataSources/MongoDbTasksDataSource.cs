@@ -7,6 +7,7 @@ using System.Web;
 using TransAppApi.Entities;
 using TransAppApi.Models;
 using TransAppApi.SearchQueries;
+using MongoDB.Driver.Linq;
 
 namespace TransAppApi.DataSources
 {
@@ -21,37 +22,37 @@ namespace TransAppApi.DataSources
             return collections;
         }
 
-        public Task[] GetAll()
+        public Task[] GetTasks(TasksSearchQuery taskSearchQuery)
         {
             var tasksCollection = GetTasksCollection();
-            var query = Query<MongoDbTask>.Where(e => e.RowStatus != 1);
-            var tasks = tasksCollection.Find(query);
+
+            var rowStatus = taskSearchQuery.RowStatus.HasValue? taskSearchQuery.RowStatus.Value : 0;
+            var lastModified = taskSearchQuery.LastModified.HasValue? taskSearchQuery.LastModified.Value : DateTime.UtcNow.AddDays(-7);
+
+            //tasksCollection.RemoveAll();
+            var tasks = from task in tasksCollection.AsQueryable<MongoDbTask>()
+                        where task.RowStatus == rowStatus && task.LastModified >= lastModified
+                         select task;
 
             return ToTasksArray(tasks);
         }
 
-        private bool QueryTask(MongoDbTask mongoDbTask, TasksSearchQuery taskSearchQuery)
+        public bool HasTask(int id)
         {
-            var result = false;
-            if (mongoDbTask.LastModified >= taskSearchQuery.LastModified)
-            {
-                result = true;
-            }
-            if (result && mongoDbTask.RowStatus == 1)
-            {
-                result = false;
-            }
-
+            var tasksCollection = GetTasksCollection();
+            var result = tasksCollection.AsQueryable<MongoDbTask>().Where(task => task.Id == id).Any();
             return result;
         }
 
         public Task GetTask(int id)
         {
             var tasksCollection = GetTasksCollection();
-            var query = Query<MongoDbTask>.EQ(e => e.Id, id);
-            var task = tasksCollection.FindOne(query);
 
-            return ToTask(task);
+            var task = tasksCollection.FindOneById(id);
+
+            var result = task != null ? ToTask(task) : null;
+
+            return result;
         }
 
         public void SaveTask(Task task)
@@ -63,7 +64,7 @@ namespace TransAppApi.DataSources
             }
 
             var mongoDbTask = new MongoDbTask(task);
-            mongoDbTask.LastModified = DateTime.Now;
+            mongoDbTask.LastModified = DateTime.UtcNow;
             
             var tasksCollection = GetTasksCollection();
             tasksCollection.Save(mongoDbTask);
@@ -73,7 +74,7 @@ namespace TransAppApi.DataSources
         {
             var task = GetTask(id);
             task.RowStatus = 1;
-            task.LastModified = DateTime.Now;
+            task.LastModified = DateTime.UtcNow;
             var tasksCollection = GetTasksCollection();
             tasksCollection.Save(task);
         }
@@ -98,17 +99,11 @@ namespace TransAppApi.DataSources
             task.Id = mongoDbTask.Id;
             task.DeliveryNumber = mongoDbTask.DeliveryNumber;
 
-            var user = GetUser(mongoDbTask);
-            task.User = new User(user);
+            task.UserId = mongoDbTask.UserId;
+            task.CompanyId = mongoDbTask.CompanyId;
 
-            var company = GetCompany(mongoDbTask);
-            task.Company = new Company(company);
-
-            var senderAddress = GetAddress(mongoDbTask.SenderAddressId);
-            task.SenderAddress = new Address(senderAddress);
-
-            var reciverAddress = GetAddress(mongoDbTask.ReciverAddressId);
-            task.ReciverAddress = new Address(reciverAddress);
+            task.SenderAddress = mongoDbTask.SenderAddress;
+            task.ReciverAddress = mongoDbTask.ReciverAddress;
 
             task.TaskStatus = mongoDbTask.TaskStatus;
             task.Created = mongoDbTask.Created;
@@ -117,61 +112,62 @@ namespace TransAppApi.DataSources
             task.PickUpTime = mongoDbTask.PickUpTime;
             task.DeliveryTime = mongoDbTask.DeliveryTime;
             task.LastModified = mongoDbTask.LastModified;
-            task.Comment = mongoDbTask.Comment;
+            task.ReciverComment = mongoDbTask.ReciverComment;
+            task.SenderComment = mongoDbTask.SenderComment;
 
-            var contact = GetContact(mongoDbTask);
-            task.Contact = new Contact(contact);
-            task.Contact.Company = task.Company;
+            //task.Contact = new Contact(contact);
+            //task.Contact.Company = task.Company;
 
             task.RowStatus = mongoDbTask.RowStatus;
             task.TaskType = mongoDbTask.TaskType;
             task.DataExtention = mongoDbTask.DataExtention;
             task.SignatureId = mongoDbTask.SignatureId;
-            task.ImageId = mongoDbTask.ImageId;
-            task.UserComment = mongoDbTask.UserComment;
+            if (!string.IsNullOrEmpty(mongoDbTask.ImageId))
+            {
+                task.ImageId = mongoDbTask.ImageId.Split(',');
+            }
             task.Rejected = mongoDbTask.Rejected;
             
-
             return task;
         }
 
-        private static User GetUser(MongoDbTask mongoDbTask)
-        {
-            var result = default(User);
-            var mongoDbUsersDataSource = new MongoDbUsersDataSource();
+        //private static User GetUser(MongoDbTask mongoDbTask)
+        //{
+        //    var result = default(User);
+        //    var mongoDbUsersDataSource = new MongoDbUsersDataSource();
 
-            result = mongoDbUsersDataSource.GetUser(mongoDbTask.UserId);
-            return result;
-        }
+        //    result = mongoDbUsersDataSource.GetUser(mongoDbTask.UserId);
+        //    return result;
+        //}
 
-        private static Address GetAddress(int? addressId)
-        {
-            var result = default(Address);
-            if (addressId.HasValue)
-            {
-                var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
+        //private static Address GetAddress(int? addressId)
+        //{
+        //    var result = default(Address);
+        //    if (addressId.HasValue)
+        //    {
+        //        var mongoDbAddressesDataSource = new MongoDbAddressesDataSource();
 
-                result = mongoDbAddressesDataSource.GetAddress(addressId.Value);
-            }
-            return result;
-        }
+        //        result = mongoDbAddressesDataSource.GetAddress(addressId.Value);
+        //    }
+        //    return result;
+        //}
 
-        private static Contact GetContact(MongoDbTask mongoDbTask)
-        {
-            var result = default(Contact);
-            var mongoDbContactsDataSource = new MongoDbContactsDataSource();
+        //private static Contact GetContact(MongoDbTask mongoDbTask)
+        //{
+        //    var result = default(Contact);
+        //    var mongoDbContactsDataSource = new MongoDbContactsDataSource();
 
-            result = mongoDbContactsDataSource.GetContact(mongoDbTask.ContactId);
-            return result;
-        }
+        //    result = mongoDbContactsDataSource.GetContact(mongoDbTask.ContactId);
+        //    return result;
+        //}
 
-        private static Company GetCompany(MongoDbTask mongoDbTask)
-        {
-            var result = default(Company);
-            var mongoDbCompaniesDataSource = new MongoDbCompaniesDataSource();
+        //private static Company GetCompany(MongoDbTask mongoDbTask)
+        //{
+        //    var result = default(Company);
+        //    var mongoDbCompaniesDataSource = new MongoDbCompaniesDataSource();
 
-            result = mongoDbCompaniesDataSource.GetCompany(mongoDbTask.CompanyId);
-            return result;
-        }
+        //    result = mongoDbCompaniesDataSource.GetCompany(mongoDbTask.CompanyId);
+        //    return result;
+        //}
     }
 }

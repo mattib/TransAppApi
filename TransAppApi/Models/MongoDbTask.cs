@@ -17,20 +17,13 @@ namespace TransAppApi.Models
 
         public MongoDbTask(Task task)
         {
-            MongoId = new ObjectId(DateTime.Now, 0, short.Parse(task.Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(task.Id.ToString()), 0);
             Id = task.Id;
             DeliveryNumber = task.DeliveryNumber;
-            UserId = task.User.Id;
-            CompanyId = task.Company.Id;
-            if (task.SenderAddress != null)
-            {
-                SenderAddressId = task.SenderAddress.Id;
-            }
-            if (task.ReciverAddress != null)
-            {
-                ReciverAddressId = task.ReciverAddress.Id;
-            }
-           
+            UserId = task.UserId;
+            CompanyId = task.CompanyId;
+            SenderAddress = task.SenderAddress;
+            ReciverAddress = task.ReciverAddress;
             TaskStatus = task.TaskStatus;
             Created = task.Created;
             PickedUpAt = task.PickedUpAt;
@@ -38,17 +31,26 @@ namespace TransAppApi.Models
             PickUpTime = task.PickUpTime;
             DeliveryTime = task.DeliveryTime;
             LastModified = task.LastModified;
-            Comment = task.Comment;
-            if (task.Contact != null)
-            {
-                ContactId = task.Contact.Id;
-            }
+            SenderComment = task.SenderComment;
+            ReciverComment = task.SenderAddress;
+            //if (task.Contact != null)
+            //{
+            //    ContactId = task.Contact.Id;
+            //}
             RowStatus = task.RowStatus;
             TaskType = task.TaskType;
             DataExtention = task.DataExtention;
             SignatureId = task.SignatureId;
-            ImageId = task.ImageId;
-            UserComment = task.UserComment;
+            var imageString = string.Empty;
+            if (task.ImageId != null)
+            {
+                foreach (var image in task.ImageId)
+                {
+                    imageString = imageString + image + ",";
+                }
+            }
+
+            ImageId = imageString;
             Rejected = task.Rejected;
         }
 
@@ -56,8 +58,8 @@ namespace TransAppApi.Models
         public string DeliveryNumber { get; set; }
         public int UserId { get; set; }
         public int CompanyId { get; set; }
-        public int SenderAddressId { get; set; }
-        public int ReciverAddressId { get; set; }
+        public string SenderAddress { get; set; }
+        public string ReciverAddress { get; set; }
         public int TaskStatus { get; set; }
         public DateTime Created { get; set; }
         public DateTime? PickedUpAt { get; set; }
@@ -65,14 +67,15 @@ namespace TransAppApi.Models
         public DateTime? PickUpTime { get; set; }
         public DateTime? DeliveryTime { get; set; }
         public DateTime LastModified { get; set; }
-        public string Comment { get; set; }
-        public int ContactId { get; set; }
+        public string SenderComment { get; set; }
+        public string ReciverComment { get; set; }
+        //public int ContactId { get; set; }
         public int RowStatus { get; set; }
         public int? TaskType { get; set; }
         public string DataExtention { get; set; }
         public string SignatureId { get; set; }
         public string ImageId { get; set; }
-        public string UserComment { get; set; }
+        
         public bool? Rejected { get; set; }
         public ObjectId MongoId
         {

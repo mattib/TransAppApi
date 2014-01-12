@@ -17,7 +17,7 @@ namespace TransAppApi.Models
 
         public MongoDbUser(User user)
         {
-            MongoId = new ObjectId(DateTime.Now, 0, short.Parse(user.Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(user.Id.ToString()), 0);
             FirstName = user.FirstName;
             LastName = user.LastName;
             UserName = user.UserName;

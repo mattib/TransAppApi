@@ -35,7 +35,12 @@ namespace TransAppApi.DataSources
             var query = Query<MongoDbCompany>.EQ(e => e.Id, id);
             var company = comapniesCollection.FindOne(query);
 
-            return ToCompany(company);
+            var result = default(Company);
+            if (company != null)
+            {
+                result = ToCompany(company);
+            }
+            return result;
         }
 
         public void SaveCompany(Company comapny)
@@ -51,7 +56,7 @@ namespace TransAppApi.DataSources
             }
 
             var mongoDbCompany = new MongoDbCompany(comapny);
-            mongoDbCompany.LastModified = DateTime.Now;
+            mongoDbCompany.LastModified = DateTime.UtcNow;
 
             var comapniesCollection = GetCompaniesCollection();
             comapniesCollection.Save(mongoDbCompany);
@@ -61,7 +66,7 @@ namespace TransAppApi.DataSources
         {
             var comapny = GetCompany(id);
             comapny.RowStatus = 1;
-            comapny.LastModified = DateTime.Now;
+            comapny.LastModified = DateTime.UtcNow;
             var comapniesCollection = GetCompaniesCollection();
             comapniesCollection.Save(comapny);
         }

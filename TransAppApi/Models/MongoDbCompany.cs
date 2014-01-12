@@ -17,7 +17,7 @@ namespace TransAppApi.Models
 
         public MongoDbCompany(Company company)
         {
-            MongoId = new ObjectId(DateTime.Now, 0, short.Parse(company.Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(company.Id.ToString()), 0);
             Name = company.Name;
             CompanyUserName = company.CompanyUserName;
             AddressId = company.Address.Id;

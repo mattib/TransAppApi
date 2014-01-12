@@ -17,7 +17,7 @@ namespace TransAppApi.Models
 
         public MongoDbAddress(Address address)
         {
-            MongoId = new ObjectId(DateTime.Now, 0, short.Parse(address.Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(address.Id.ToString()), 0);
             StreetName = address.StreetName;
             StreetNumber = address.StreetNumber;
             City = address.City;

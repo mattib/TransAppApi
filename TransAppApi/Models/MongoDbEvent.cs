@@ -18,7 +18,7 @@ namespace TransAppApi.Models
         public MongoDbEvent(Event eventItem)
             : base(eventItem)
         {
-            MongoId = new ObjectId(DateTime.Now, 0, short.Parse(Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(Id.ToString()), 0);
         }
 
         public ObjectId MongoId

@@ -49,7 +49,7 @@ namespace TransAppApi.DataSources
             }
 
             var MongoDbUser = new MongoDbContact(contact);
-            MongoDbUser.LastModified = DateTime.Now;
+            MongoDbUser.LastModified = DateTime.UtcNow;
             var contactsCollection = GetContactsCollection();
             contactsCollection.Save(MongoDbUser);
             return contact.Id;
@@ -59,7 +59,7 @@ namespace TransAppApi.DataSources
         {
             var contact = GetContact(id);
             contact.RowStatus = 1;
-            contact.LastModified = DateTime.Now;
+            contact.LastModified = DateTime.UtcNow;
             var contactsCollection = GetContactsCollection();
             contactsCollection.Save(contact);
         }

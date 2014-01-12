@@ -17,7 +17,7 @@ namespace TransAppApi.Models
 
         public MongoDbCustomer(Customer customer)
         {
-            MongoId = new ObjectId(DateTime.Now, 0, short.Parse(customer.Id.ToString()), 0);
+            MongoId = new ObjectId(DateTime.UtcNow, 0, short.Parse(customer.Id.ToString()), 0);
             Name = customer.Name;
             AddressId = customer.Address.Id;
             ContactId = customer.Contact.Id;

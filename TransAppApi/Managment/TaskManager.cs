@@ -24,9 +24,9 @@ namespace TransAppApi.Managment
 
             var tasksList = QueryEvents(searchQuery);
 
-            foreach (var mongoDbTask in tasksList)
+            foreach (var task in tasksList)
             {
-                var task = new Task(mongoDbTask);
+                //var task = new Task(mongoDbTask);
                 result.Add(task);
             }
 
@@ -35,9 +35,9 @@ namespace TransAppApi.Managment
 
         public Task GetEntity(int id)
         {
-            var mongoDbtask = m_tasksDataSource.GetTask(id);
+            var result = m_tasksDataSource.GetTask(id);
 
-            var result = new Task(mongoDbtask);
+            //var result = new Task(mongoDbtask);
 
             return result;
         }
@@ -48,7 +48,7 @@ namespace TransAppApi.Managment
             {
                 if (TaskIsValid(task))
                 {
-                    task.LastModified = DateTime.Now;
+                    task.LastModified = DateTime.UtcNow;
                     m_tasksDataSource.SaveTask(task);
 
                     if ((TaskStatus)task.TaskStatus == TaskStatus.Created)
@@ -86,11 +86,11 @@ namespace TransAppApi.Managment
             var eventItem = new Event();
             eventItem.Id = 0;
             eventItem.TaskId = task.Id;
-            eventItem.Time = DateTime.Now;
+            eventItem.Time = DateTime.UtcNow;
             eventItem.EventType = (int)InputType.TaskStatusChange;
             eventItem.RowStatus = 0;
             eventItem.InputType = (int)taskStatus;
-            eventItem.UserId = task.User.Id;
+            eventItem.UserId = task.UserId;
             return eventItem;
         }
 
@@ -109,25 +109,25 @@ namespace TransAppApi.Managment
                 }
             }
 
-            if (!UserIsValid(task.User.Id))
+            if (!UserIsValid(task.UserId))
             {
                 result = false;
             }
 
-            if (!CompanyIsValid(task.Company.Id))
-            {
-                result = false;
-            }
+            //if (!CompanyIsValid(task.CompanyId))
+            //{
+            //    result = false;
+            //}
 
-            if (!AddressIsValid(task.SenderAddress.Id))
-            {
-                result = false;
-            }
+            //if (!AddressIsValid(task.SenderAddress.Id))
+            //{
+            //    result = false;
+            //}
 
-            if (!AddressIsValid(task.ReciverAddress.Id))
-            {
-                result = false;
-            }
+            //if (!AddressIsValid(task.ReciverAddress.Id))
+            //{
+            //    result = false;
+            //}
 
             return result;
         }
@@ -140,21 +140,21 @@ namespace TransAppApi.Managment
             return result;
         }
 
-        private bool CompanyIsValid(int comapanyId)
-        {
-            var companyManager = new CompanyManager();
-            var result = companyManager.EntityExists(comapanyId);
+        //private bool CompanyIsValid(int comapanyId)
+        //{
+        //    var companyManager = new CompanyManager();
+        //    var result = companyManager.EntityExists(comapanyId);
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        private bool AddressIsValid(int addressId)
-        {
-            var addressManager = new AddressManager();
-            var result = addressManager.EntityExists(addressId);
+        //private bool AddressIsValid(int addressId)
+        //{
+        //    var addressManager = new AddressManager();
+        //    var result = addressManager.EntityExists(addressId);
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public void DeleteEntity(int id)
         {
@@ -163,7 +163,7 @@ namespace TransAppApi.Managment
 
         public bool EntityExists(int id)
         {
-            var result = m_tasksDataSource.GetTask(id) != null;
+            var result = m_tasksDataSource.HasTask(id);
             return result;
         }
 
@@ -173,15 +173,12 @@ namespace TransAppApi.Managment
 
             var tasksSearchQuery = entitiesSearchQuery as TasksSearchQuery;
 
-            IEnumerable<Task> tasksDataSource = m_tasksDataSource.GetAll();
+            IEnumerable<Task> tasksDataSource = m_tasksDataSource.GetTasks(tasksSearchQuery);
 
+            // TO DO in the future I have to make this more afficent too.
             tasksDataSource = FilterUserId(tasksSearchQuery, tasksDataSource);
 
             tasksDataSource = FilterCompanyId(tasksSearchQuery, tasksDataSource);
-
-            tasksDataSource = FilterRowStatus(tasksSearchQuery, tasksDataSource);
-
-            tasksDataSource = FilterTime(tasksSearchQuery, tasksDataSource);
 
             tasksDataSource = FilterDeliveryNumber(tasksSearchQuery, tasksDataSource);
             return tasksDataSource;
@@ -191,7 +188,7 @@ namespace TransAppApi.Managment
         {
             if (tasksSearchQuery.UserId.HasValue)
             {
-                tasks = tasks.Where(item => (item.User.Id == tasksSearchQuery.UserId.Value));
+                tasks = tasks.Where(item => (item.UserId == tasksSearchQuery.UserId.Value));
             }
             return tasks;
         }
@@ -200,25 +197,7 @@ namespace TransAppApi.Managment
         {
             if (tasksSearchQuery.CompanyId.HasValue)
             {
-                tasks = tasks.Where(item => (item.Company.Id == tasksSearchQuery.CompanyId.Value));
-            }
-            return tasks;
-        }
-
-        private IEnumerable<Task> FilterRowStatus(TasksSearchQuery tasksSearchQuery, IEnumerable<Task> tasks)
-        {
-            if (tasksSearchQuery.RowStatus.HasValue)
-            {
-                tasks = tasks.Where(item => (item.RowStatus == tasksSearchQuery.RowStatus.Value));
-            }
-            return tasks;
-        }
-
-        private IEnumerable<Task> FilterTime(TasksSearchQuery tasksSearchQuery, IEnumerable<Task> tasks)
-        {
-            if (tasksSearchQuery.LastModified.HasValue)
-            {
-                tasks = tasks.Where(item => (item.LastModified >= tasksSearchQuery.LastModified.Value));
+                tasks = tasks.Where(item => (item.CompanyId == tasksSearchQuery.CompanyId.Value));
             }
             return tasks;
         }

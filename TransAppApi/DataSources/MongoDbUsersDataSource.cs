@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using TransAppApi.Entities;
 using TransAppApi.Models;
+using MongoDB.Driver.Linq;
 
 namespace TransAppApi.DataSources
 {
@@ -34,7 +35,8 @@ namespace TransAppApi.DataSources
             var UsersCollection = GetUsersCollection();
             var query = Query<MongoDbUser>.EQ(e => e.Id, id);
             var user = UsersCollection.FindOne(query);
-
+            if (user == null)
+                return null;
             return ToUser(user);
         }
 
@@ -53,7 +55,7 @@ namespace TransAppApi.DataSources
             if (user.Id == 0)
             {
                 user.Id = NewId();
-                user.TimeCreated = DateTime.Now;
+                user.TimeCreated = DateTime.UtcNow;
             }
             else
             {
@@ -65,7 +67,7 @@ namespace TransAppApi.DataSources
             }
 
             var mongoDbUser = new MongoDbUser(user);
-            mongoDbUser.LastModified = DateTime.Now;
+            mongoDbUser.LastModified = DateTime.UtcNow;
             var UsersCollection = GetUsersCollection();
             UsersCollection.Save(mongoDbUser);
         }
@@ -74,7 +76,7 @@ namespace TransAppApi.DataSources
         {
             var UserItem = GetUser(id);
             UserItem.RowStatus = 1;
-            UserItem.LastModified = DateTime.Now;
+            UserItem.LastModified = DateTime.UtcNow;
             var UsersCollection = GetUsersCollection();
             UsersCollection.Save(UserItem);
         }
@@ -105,8 +107,9 @@ namespace TransAppApi.DataSources
             user.ReferenceId = mongoDbUser.ReferenceId;
             user.Password = mongoDbUser.Password;
 
-            var company = GetCompany(mongoDbUser);
-            user.Company = new Company(company);
+            // fixed in the future
+            //var company = GetCompany(mongoDbUser);
+            user.Company = new Company() { Id = 1};
 
             user.Role = mongoDbUser.Role;
             user.TimeCreated = mongoDbUser.TimeCreated;
@@ -135,7 +138,7 @@ namespace TransAppApi.DataSources
             {
                 savedUser.Password = newPassword;
                 var mongoDbUser = new MongoDbUser(savedUser);
-                mongoDbUser.LastModified = DateTime.Now;
+                mongoDbUser.LastModified = DateTime.UtcNow;
                 var UsersCollection = GetUsersCollection();
                 UsersCollection.Save(mongoDbUser);
                 result = true;
@@ -175,6 +178,29 @@ namespace TransAppApi.DataSources
             var newUser = GetUser(userName);
 
             return newUser.Id;
+        }
+
+        public bool UserExists(int userId)
+        {
+            var tasksCollection = GetUsersCollection();
+            var result = tasksCollection.AsQueryable<MongoDbUser>().Where(user => user.Id == userId).Any();
+            return result;
+        }
+
+        public bool UserExists(string userName)
+        {
+            var result = false;
+
+            var UsersCollection = GetUsersCollection();
+            var query = Query<MongoDbUser>.EQ(e => e.UserName, userName);
+            var user = UsersCollection.FindOne(query);
+
+            if (user != null)
+            {
+                result = true;
+            }
+
+            return result;
         }
     }
 }
